@@ -21,6 +21,16 @@ char const* GitRevision::GetCMakeCommand()
     return _CMAKE_COMMAND;
 }
 
+char const* GitRevision::GetCMakeVersion()
+{
+    return _CMAKE_VERSION;
+}
+
+char const* GitRevision::GetHostOSVersion()
+{
+    return _CMAKE_HOST_SYSTEM;
+}
+
 char const* GitRevision::GetBuildDirectory()
 {
     return _BUILD_DIRECTORY;
@@ -46,30 +56,19 @@ char const* GitRevision::GetHotfixesDatabase()
     return _HOTFIXES_DATABASE;
 }
 
-#if PLATFORM == PLATFORM_WINDOWS
-#  ifdef _WIN64
-#    define TRINITY_PLATFORM_STR "Win64"
-#  else
-#    define TRINITY_PLATFORM_STR "Win32"
-#  endif
-#elif PLATFORM == PLATFORM_APPLE
-#  define TRINITY_PLATFORM_STR "MacOSX"
-#elif PLATFORM == PLATFORM_INTEL
-#  define TRINITY_PLATFORM_STR "Intel"
-#else // PLATFORM_UNIX
-#  define TRINITY_PLATFORM_STR "Unix"
-#endif
-
-#ifndef TRINITY_API_USE_DYNAMIC_LINKING
-#  define TRINITY_LINKAGE_TYPE_STR "Static"
-#else
-#  define TRINITY_LINKAGE_TYPE_STR "Dynamic"
-#endif
+#define _PACKAGENAME "TrinityCore"
 
 char const* GitRevision::GetFullVersion()
 {
-  return "TrinityCore rev. " VER_PRODUCTVERSION_STR
-    " (" TRINITY_PLATFORM_STR ", " _BUILD_DIRECTIVE ", " TRINITY_LINKAGE_TYPE_STR ")";
+#if TRINITY_PLATFORM == TRINITY_PLATFORM_WINDOWS
+# ifdef _WIN64
+    return VER_PRODUCTVERSION_STR " (Win64, " _BUILD_DIRECTIVE ")";
+# else
+    return VER_PRODUCTVERSION_STR " (Win32, " _BUILD_DIRECTIVE ")";
+# endif
+#else
+    return VER_PRODUCTVERSION_STR " (Unix, " _BUILD_DIRECTIVE ")";
+#endif
 }
 
 char const* GitRevision::GetCompanyNameStr()
