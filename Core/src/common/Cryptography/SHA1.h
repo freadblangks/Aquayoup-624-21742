@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2016 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -23,6 +23,7 @@
 #include <string>
 #include <type_traits>
 #include <openssl/sha.h>
+#include <openssl/evp.h>
 
 class BigNumber;
 
@@ -30,24 +31,30 @@ class TC_COMMON_API SHA1Hash
 {
     public:
         typedef std::integral_constant<uint32, SHA_DIGEST_LENGTH> DigestLength;
-
-        SHA1Hash();
+    
+        SHA1Hash() noexcept;
+        SHA1Hash(SHA1Hash const& other);     // copy
+        SHA1Hash(SHA1Hash&& other) noexcept; // move
+        SHA1Hash &operator=(SHA1Hash other); // assign
         ~SHA1Hash();
 
+        void Swap(SHA1Hash& other) throw();
+        friend void Swap(SHA1Hash& left, SHA1Hash &right) { left.Swap(right); }
+
         void UpdateBigNumbers(BigNumber* bn0, ...);
-
-        void UpdateData(const uint8 *dta, int len);
-        void UpdateData(const std::string &str);
-
+    
+        void UpdateData(const uint8* dta, int len);
+        void UpdateData(const std::string& str);
+    
         void Initialize();
         void Finalize();
-
-        uint8 *GetDigest(void) { return mDigest; }
-        int GetLength(void) const { return SHA_DIGEST_LENGTH; }
-
+    
+        uint8 *GetDigest(void) { return m_digest; }
+        int GetLength() const { return SHA_DIGEST_LENGTH; }
+    
     private:
-        SHA_CTX mC;
-        uint8 mDigest[SHA_DIGEST_LENGTH];
+        EVP_MD_CTX* m_ctx;
+        uint8 m_digest[SHA_DIGEST_LENGTH];
 };
 
 /// Returns the SHA1 hash of the given content as hex string.
