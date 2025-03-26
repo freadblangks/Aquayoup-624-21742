@@ -1,6 +1,8 @@
 #include "GitRevision.h"
 #include "revision_data.h"
 
+#define _BUILD_DIRECTIVE "Release"
+
 char const* GitRevision::GetHash()
 {
     return _HASH;
