@@ -17,6 +17,9 @@ set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 # Set projectname (must be done AFTER setting configurationtypes)
 project(AquayoupCore)
 
+# Set C++ standard to C++20
+set(CMAKE_CXX_STANDARD 20)
+
 # CMake policies (can not be handled elsewhere)
 cmake_policy(SET CMP0005 NEW)
 cmake_policy(SET CMP0043 NEW) # Ignore COMPILE_DEFINITIONS_<Config> properties
