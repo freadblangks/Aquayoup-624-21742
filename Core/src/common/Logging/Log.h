@@ -113,7 +113,7 @@ class TC_COMMON_API Log
         std::string m_logsTimestamp;
 
         boost::asio::io_service* _ioService;
-        boost::asio::strand* _strand;
+        boost::asio::strand<boost::asio::io_context::executor_type>* _strand;
 };
 
 inline Logger const* Log::GetLoggerByType(std::string const& type) const

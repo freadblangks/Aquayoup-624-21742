@@ -26,7 +26,9 @@
 
 #include <cstdarg>
 #include <cstdio>
-#include <sstream>
+#include <sstream>        
+#include <boost/asio.hpp>
+#include <boost/bind/bind.hpp>
 
 Log::Log() : AppenderId(0), lowestLogLevel(LOG_LEVEL_FATAL), _ioService(nullptr), _strand(nullptr)
 {
@@ -233,7 +235,7 @@ void Log::write(std::unique_ptr<LogMessage>&& msg) const
     {
         auto logOperation = std::shared_ptr<LogOperation>(new LogOperation(logger, std::move(msg)));
 
-        _ioService->post(_strand->wrap([logOperation](){ logOperation->call(); }));
+        boost::asio::post(boost::asio::bind_executor(*_strand, [logOperation]() { logOperation->call(); }));
     }
     else
         logger->write(msg.get());
@@ -332,7 +334,7 @@ void Log::Initialize(boost::asio::io_service* ioService)
     if (ioService)
     {
         _ioService = ioService;
-        _strand = new boost::asio::strand(*ioService);
+        _strand = new boost::asio::strand<boost::asio::io_context::executor_type>(ioService->get_executor());
     }
 
     LoadFromConfig();
