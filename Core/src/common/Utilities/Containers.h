@@ -179,10 +179,12 @@ namespace Trinity
         * @param begin Beginning of the range to reorder
         * @param end End of the range to reorder
         */
-        template <std::random_access_iterator Iterator>
+        template <typename Iterator>
         inline void RandomShuffle(Iterator begin, Iterator end)
         {
-            std::ranges::shuffle(begin, end, RandomEngine::Instance());
+            static_assert(std::is_base_of_v<std::random_access_iterator_tag, typename std::iterator_traits<Iterator>::iterator_category>,
+                "Iterator must be a random access iterator");
+            std::shuffle(begin, end, SFMTEngine::Instance());
         }
 
         /**
