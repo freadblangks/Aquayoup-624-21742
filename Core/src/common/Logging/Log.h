@@ -24,6 +24,7 @@
 #include "Logger.h"
 #include "StringFormat.h"
 #include "Common.h"
+#include "AsioHacksFwd.h"
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/strand.hpp>
 
@@ -34,86 +35,94 @@
 
 #define LOGGER_ROOT "root"
 
+namespace Trinity
+{
+    namespace Asio
+    {
+        class IoContext;
+    }
+}
+
 class TC_COMMON_API Log
 {
     typedef std::unordered_map<std::string, Logger> LoggerMap;
 
-    private:
-        Log();
-        ~Log();
+private:
+    Log();
+    ~Log();
 
-    public:
+public:
 
-        static Log* instance();
+    static Log* instance();
 
-        void Initialize(boost::asio::io_service* ioService);
-        void SetSynchronous();  // Not threadsafe - should only be called from main() after all threads are joined
-        void LoadFromConfig();
-        void Close();
-        bool ShouldLog(std::string const& type, LogLevel level) const;
-        bool SetLogLevel(std::string const& name, char const* level, bool isLogger = true);
+    void Initialize(Trinity::Asio::IoContext* ioContext);
+    void SetSynchronous();  // Not threadsafe - should only be called from main() after all threads are joined
+    void LoadFromConfig();
+    void Close();
+    bool ShouldLog(std::string const& type, LogLevel level) const;
+    bool SetLogLevel(std::string const& name, char const* level, bool isLogger = true);
 
-        template<typename Format, typename... Args>
-        inline void outMessage(std::string const& filter, LogLevel const level, Format&& fmt, Args&&... args)
-        {
-            write(Trinity::make_unique<LogMessage>(level, filter,
-                Trinity::StringFormat(std::forward<Format>(fmt), std::forward<Args>(args)...)));
-        }
+    template<typename Format, typename... Args>
+    inline void outMessage(std::string const& filter, LogLevel const level, Format&& fmt, Args&&... args)
+    {
+        write(Trinity::make_unique<LogMessage>(level, filter,
+            Trinity::StringFormat(std::forward<Format>(fmt), std::forward<Args>(args)...)));
+    }
 
-        template<typename Format, typename... Args>
-        void outCommand(uint32 account, Format&& fmt, Args&&... args)
-        {
-            if (!ShouldLog("commands.gm", LOG_LEVEL_INFO))
-                return;
+    template<typename Format, typename... Args>
+    void outCommand(uint32 account, Format&& fmt, Args&&... args)
+    {
+        if (!ShouldLog("commands.gm", LOG_LEVEL_INFO))
+            return;
 
-            std::unique_ptr<LogMessage> msg =
-                Trinity::make_unique<LogMessage>(LOG_LEVEL_INFO, "commands.gm",
-                    Trinity::StringFormat(std::forward<Format>(fmt), std::forward<Args>(args)...));
+        std::unique_ptr<LogMessage> msg =
+            Trinity::make_unique<LogMessage>(LOG_LEVEL_INFO, "commands.gm",
+                Trinity::StringFormat(std::forward<Format>(fmt), std::forward<Args>(args)...));
 
-            msg->param1 = std::to_string(account);
+        msg->param1 = std::to_string(account);
 
-            write(std::move(msg));
-        }
+        write(std::move(msg));
+    }
 
-        void outCharDump(char const* str, uint32 account_id, uint64 guid, char const* name);
+    void outCharDump(char const* str, uint32 account_id, uint64 guid, char const* name);
 
-        void SetRealmId(uint32 id);
+    void SetRealmId(uint32 id);
 
-        template<class AppenderImpl>
-        void RegisterAppender()
-        {
-            using Index = typename AppenderImpl::TypeIndex;
-            auto itr = appenderFactory.find(Index::value);
-            ASSERT(itr == appenderFactory.end());
-            appenderFactory[Index::value] = &CreateAppender<AppenderImpl>;
-        }
+    template<class AppenderImpl>
+    void RegisterAppender()
+    {
+        using Index = typename AppenderImpl::TypeIndex;
+        auto itr = appenderFactory.find(Index::value);
+        ASSERT(itr == appenderFactory.end());
+        appenderFactory[Index::value] = &CreateAppender<AppenderImpl>;
+    }
 
-        std::string const& GetLogsDir() const { return m_logsDir; }
-        std::string const& GetLogsTimestamp() const { return m_logsTimestamp; }
+    std::string const& GetLogsDir() const { return m_logsDir; }
+    std::string const& GetLogsTimestamp() const { return m_logsTimestamp; }
 
-    private:
-        static std::string GetTimestampStr();
-        void write(std::unique_ptr<LogMessage>&& msg) const;
+private:
+    static std::string GetTimestampStr();
+    void write(std::unique_ptr<LogMessage>&& msg) const;
 
-        Logger const* GetLoggerByType(std::string const& type) const;
-        Appender* GetAppenderByName(std::string const& name);
-        uint8 NextAppenderId();
-        void CreateAppenderFromConfig(std::string const& name);
-        void CreateLoggerFromConfig(std::string const& name);
-        void ReadAppendersFromConfig();
-        void ReadLoggersFromConfig();
+    Logger const* GetLoggerByType(std::string const& type) const;
+    Appender* GetAppenderByName(std::string const& name);
+    uint8 NextAppenderId();
+    void CreateAppenderFromConfig(std::string const& name);
+    void CreateLoggerFromConfig(std::string const& name);
+    void ReadAppendersFromConfig();
+    void ReadLoggersFromConfig();
 
-        AppenderCreatorMap appenderFactory;
-        AppenderMap appenders;
-        LoggerMap loggers;
-        uint8 AppenderId;
-        LogLevel lowestLogLevel;
+    AppenderCreatorMap appenderFactory;
+    AppenderMap appenders;
+    LoggerMap loggers;
+    uint8 AppenderId;
+    LogLevel lowestLogLevel;
 
-        std::string m_logsDir;
-        std::string m_logsTimestamp;
+    std::string m_logsDir;
+    std::string m_logsTimestamp;
 
-        boost::asio::io_service* _ioService;
-        boost::asio::strand<boost::asio::io_context::executor_type>* _strand;
+    Trinity::Asio::IoContext* _ioContext;
+    Trinity::Asio::Strand* _strand;
 };
 
 inline Logger const* Log::GetLoggerByType(std::string const& type) const
@@ -128,7 +137,7 @@ inline Logger const* Log::GetLoggerByType(std::string const& type) const
     std::string parentLogger = LOGGER_ROOT;
     size_t found = type.find_last_of(".");
     if (found != std::string::npos)
-        parentLogger = type.substr(0,found);
+        parentLogger = type.substr(0, found);
 
     return GetLoggerByType(parentLogger);
 }

@@ -23,14 +23,15 @@
 #include "AppenderConsole.h"
 #include "AppenderFile.h"
 #include "LogOperation.h"
+#include "Strand.h"
+#include "IoContext.h"
 
 #include <cstdarg>
 #include <cstdio>
-#include <sstream>        
-#include <boost/asio.hpp>
-#include <boost/bind/bind.hpp>
+#include <sstream>
+#include <iostream>
 
-Log::Log() : AppenderId(0), lowestLogLevel(LOG_LEVEL_FATAL), _ioService(nullptr), _strand(nullptr)
+Log::Log() : AppenderId(0), lowestLogLevel(LOG_LEVEL_FATAL), _ioContext(nullptr), _strand(nullptr)
 {
     m_logsTimestamp = "_" + GetTimestampStr();
     RegisterAppender<AppenderConsole>();
@@ -210,7 +211,7 @@ void Log::ReadLoggersFromConfig()
     if (loggers.find(LOGGER_ROOT) == loggers.end())
     {
         fprintf(stderr, "Wrong Loggers configuration. Review your Logger config section.\n"
-                        "Creating default loggers [root (Error), server (Info)] to console\n");
+            "Creating default loggers [root (Error), server (Info)] to console\n");
 
         Close(); // Clean any Logger or Appender created
 
@@ -231,14 +232,16 @@ void Log::write(std::unique_ptr<LogMessage>&& msg) const
 {
     Logger const* logger = GetLoggerByType(msg->type);
 
-    if (_ioService)
+    if (_ioContext)
     {
-        auto logOperation = std::shared_ptr<LogOperation>(new LogOperation(logger, std::move(msg)));
-
-        boost::asio::post(boost::asio::bind_executor(*_strand, [logOperation]() { logOperation->call(); }));
+        std::shared_ptr<LogOperation> logOperation = std::make_shared<LogOperation>(logger, std::move(msg));
+        Trinity::Asio::post(*_ioContext, Trinity::Asio::bind_executor(*_strand, [logOperation]() { logOperation->call(); }));
     }
     else
         logger->write(msg.get());
+
+    std::cout << "";
+    std::cerr << "";
 }
 
 std::string Log::GetTimestampStr()
@@ -297,7 +300,7 @@ void Log::outCharDump(char const* str, uint32 accountId, uint64 guid, char const
 
     std::ostringstream ss;
     ss << "== START DUMP == (account: " << accountId << " guid: " << guid << " name: " << name
-       << ")\n" << str << "\n== END DUMP ==\n";
+        << ")\n" << str << "\n== END DUMP ==\n";
 
     std::unique_ptr<LogMessage> msg(new LogMessage(LOG_LEVEL_INFO, "entities.player.dump", ss.str()));
     std::ostringstream param;
@@ -329,12 +332,12 @@ Log* Log::instance()
     return &instance;
 }
 
-void Log::Initialize(boost::asio::io_service* ioService)
+void Log::Initialize(Trinity::Asio::IoContext* ioContext)
 {
-    if (ioService)
+    if (ioContext)
     {
-        _ioService = ioService;
-        _strand = new boost::asio::strand<boost::asio::io_context::executor_type>(ioService->get_executor());
+        _ioContext = ioContext;
+        _strand = new Trinity::Asio::Strand(*ioContext);
     }
 
     LoadFromConfig();
@@ -344,7 +347,7 @@ void Log::SetSynchronous()
 {
     delete _strand;
     _strand = nullptr;
-    _ioService = nullptr;
+    _ioContext = nullptr;
 }
 
 void Log::LoadFromConfig()
