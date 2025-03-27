@@ -53,6 +53,12 @@ TC_SCRIPT_API void AddScripts()
 {
 @TRINITY_SCRIPTS_INVOKE@}
 
+/// Exposed in script modules to get the build directive of the module.
+TC_SCRIPT_API char const* GetBuildDirective()
+{
+    return _BUILD_DIRECTIVE;
+}
+
 #ifdef TRINITY_IS_DYNAMIC_SCRIPTLOADER
 } // extern "C"
 #endif
