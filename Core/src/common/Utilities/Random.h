@@ -96,4 +96,13 @@ namespace Trinity
 #endif
 }
 
+class RandomEngine {
+public:
+    static std::mt19937& Instance() {
+        static std::random_device rd;
+        static std::mt19937 engine(rd());
+        return engine;
+    }
+};
+
 #endif // Random_h__
