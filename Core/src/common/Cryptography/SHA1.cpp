@@ -25,22 +25,26 @@
 
 SHA1Hash::SHA1Hash() noexcept
 {
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+    m_ctx = EVP_MD_CTX_create();
+#else
     m_ctx = EVP_MD_CTX_new();
+#endif
     EVP_DigestInit_ex(m_ctx, EVP_sha1(), nullptr);
 }
 
-SHA1Hash::SHA1Hash(const SHA1Hash &other) : SHA1Hash() // copy
+SHA1Hash::SHA1Hash(const SHA1Hash& other) : SHA1Hash() // copy
 {
     EVP_MD_CTX_copy_ex(m_ctx, other.m_ctx);
     std::memcpy(m_digest, other.m_digest, SHA_DIGEST_LENGTH);
 }
 
-SHA1Hash::SHA1Hash(SHA1Hash &&other) noexcept : SHA1Hash() // move
+SHA1Hash::SHA1Hash(SHA1Hash&& other) noexcept : SHA1Hash() // move
 {
     Swap(other);
 }
 
-SHA1Hash &SHA1Hash::operator=(SHA1Hash other) // assign
+SHA1Hash& SHA1Hash::operator=(SHA1Hash other) // assign
 {
     Swap(other);
     return *this;
@@ -48,21 +52,25 @@ SHA1Hash &SHA1Hash::operator=(SHA1Hash other) // assign
 
 SHA1Hash::~SHA1Hash()
 {
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+    EVP_MD_CTX_destroy(m_ctx);
+#else
     EVP_MD_CTX_free(m_ctx);
+#endif
 }
 
-void SHA1Hash::Swap(SHA1Hash &other) throw()
+void SHA1Hash::Swap(SHA1Hash& other) throw()
 {
     std::swap(m_ctx, other.m_ctx);
     std::swap(m_digest, other.m_digest);
 }
 
-void SHA1Hash::UpdateData(const uint8 *dta, int len)
+void SHA1Hash::UpdateData(const uint8* dta, int len)
 {
     EVP_DigestUpdate(m_ctx, dta, len);
 }
 
-void SHA1Hash::UpdateData(const std::string &str)
+void SHA1Hash::UpdateData(const std::string& str)
 {
     UpdateData((uint8 const*)str.c_str(), str.length());
 }
@@ -94,13 +102,22 @@ void SHA1Hash::Finalize(void)
 
 std::string CalculateSHA1Hash(std::string const& content)
 {
-    EVP_MD_CTX* mdctx = EVP_MD_CTX_new();
+    EVP_MD_CTX* mdctx;
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+    mdctx = EVP_MD_CTX_create();
+#else
+    mdctx = EVP_MD_CTX_new();
+#endif
     EVP_DigestInit_ex(mdctx, EVP_sha1(), nullptr);
     EVP_DigestUpdate(mdctx, content.c_str(), content.size());
     uint8 digest[SHA_DIGEST_LENGTH];
     uint32 shaDigestLength = SHA_DIGEST_LENGTH;
     EVP_DigestFinal_ex(mdctx, digest, &shaDigestLength);
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+    EVP_MD_CTX_destroy(mdctx);
+#else
     EVP_MD_CTX_free(mdctx);
+#endif
 
     return ByteArrayToHexStr(digest, SHA_DIGEST_LENGTH);
 }
