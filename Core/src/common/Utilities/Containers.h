@@ -21,10 +21,14 @@
 #include "Define.h"
 #include "Random.h"
 #include "Util.h"
+#include <type_traits>
+#include <iterator>
 #include <algorithm>
 #include <functional>
 #include <list>
 #include <vector>
+#include <random>
+#include <ranges>
 
 namespace Trinity
 {
