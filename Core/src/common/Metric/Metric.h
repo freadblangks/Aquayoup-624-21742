@@ -121,7 +121,7 @@ public:
 
 #define sMetric Metric::instance()
 
-#if TRINITY_PLATFORM != TRINITY_PLATFORM_WINDOWS
+#if TRINITY_PLATFORM != PLATFORM_WINDOWS
 #define TC_METRIC_EVENT(category, title, description)                    \
         do {                                                            \
             if (sMetric->IsEnabled())                              \

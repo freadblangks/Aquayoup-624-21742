@@ -141,7 +141,7 @@ Optional<std::size_t> SelectAddressForClient(boost::asio::ip::address const& cli
 }
 }
 
-#if TRINITY_PLATFORM == TRINITY_PLATFORM_WINDOWS
+#if TRINITY_PLATFORM == PLATFORM_WINDOWS
 
 #include <boost/dll/shared_library.hpp>
 #include <iphlpapi.h>
