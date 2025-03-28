@@ -186,7 +186,7 @@ namespace Trinity
         template <typename Iterator>
         inline void RandomShuffle(Iterator begin, Iterator end)
         {
-            static_assert(std::is_base_of_v<std::random_access_iterator_tag, typename std::iterator_traits<Iterator>::iterator_category>,
+            static_assert(std::is_base_of<std::random_access_iterator_tag, typename std::iterator_traits<Iterator>::iterator_category>::value,
                 "Iterator must be a random access iterator");
             std::shuffle(begin, end, SFMTEngine::Instance());
         }
