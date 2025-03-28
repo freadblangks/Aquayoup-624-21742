@@ -1,5 +1,6 @@
 /*
- * This file is part of the TrinityCore Project. See AUTHORS file for Copyright information
+ * Copyright (C) 2008-2016 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
@@ -18,28 +19,37 @@
 #ifndef TRINITY_COMPILERDEFS_H
 #define TRINITY_COMPILERDEFS_H
 
-#define TRINITY_PLATFORM_WINDOWS 0
-#define TRINITY_PLATFORM_UNIX    1
-#define TRINITY_PLATFORM_APPLE   2
+#define PLATFORM_WINDOWS 0
+#define PLATFORM_UNIX    1
+#define PLATFORM_APPLE   2
+#define PLATFORM_INTEL   3
 
-#if defined( _WIN32 )
-#  define TRINITY_PLATFORM TRINITY_PLATFORM_WINDOWS
-#elif defined( __APPLE__ )
-#  define TRINITY_PLATFORM TRINITY_PLATFORM_APPLE
+// must be first (win 64 also define _WIN32)
+#if defined( _WIN64 )
+#  define PLATFORM PLATFORM_WINDOWS
+#elif defined( __WIN32__ ) || defined( WIN32 ) || defined( _WIN32 )
+#  define PLATFORM PLATFORM_WINDOWS
+#elif defined( __APPLE_CC__ )
+#  define PLATFORM PLATFORM_APPLE
+#elif defined( __INTEL_COMPILER )
+#  define PLATFORM PLATFORM_INTEL
 #else
-#  define TRINITY_PLATFORM TRINITY_PLATFORM_UNIX
+#  define PLATFORM PLATFORM_UNIX
 #endif
 
-#define TRINITY_COMPILER_MICROSOFT 0
-#define TRINITY_COMPILER_GNU       1
-#define TRINITY_COMPILER_INTEL     2
+#define COMPILER_MICROSOFT 0
+#define COMPILER_GNU       1
+#define COMPILER_BORLAND   2
+#define COMPILER_INTEL     3
 
 #ifdef _MSC_VER
-#  define TRINITY_COMPILER TRINITY_COMPILER_MICROSOFT
+#  define COMPILER COMPILER_MICROSOFT
+#elif defined( __BORLANDC__ )
+#  define COMPILER COMPILER_BORLAND
 #elif defined( __INTEL_COMPILER )
-#  define TRINITY_COMPILER TRINITY_COMPILER_INTEL
+#  define COMPILER COMPILER_INTEL
 #elif defined( __GNUC__ )
-#  define TRINITY_COMPILER TRINITY_COMPILER_GNU
+#  define COMPILER COMPILER_GNU
 #  define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
 #else
 #  error "FATAL ERROR: Unknown compiler."
