@@ -82,7 +82,7 @@ char serviceDescription[] = "TrinityCore World of Warcraft emulator world servic
 int m_ServiceStatus = -1;
 #endif
 
-Trinity::Asio::IoContext *ioContext;
+Trinity::Asio::IoContext ioContext;
 uint32 _worldLoopCounter(0);
 uint32 _lastChangeMsTime(0);
 uint32 _maxCoreStuckTimeInMs(0);
@@ -466,7 +466,7 @@ AsyncAcceptor* StartRaSocketAcceptor(Trinity::Asio::IoContext& ioContext)
 
 bool LoadRealmInfo()
 {
-    boost::asio::ip::tcp::resolver resolver(*ioContext);
+    boost::asio::ip::tcp::resolver resolver(ioContext);
     boost::asio::ip::tcp::resolver::iterator end;
 
     TC_LOG_INFO("server.worldserver", "Loading realm info for realm ID %u", realm.Id.Realm);
@@ -493,7 +493,7 @@ bool LoadRealmInfo()
         std::string externalAddress = fields[2].GetString();
         TC_LOG_INFO("server.worldserver", "External address: %s", externalAddress.c_str());
 
-        boost::asio::ip::tcp::resolver::query externalAddressQuery(ip::tcp::v4(), externalAddress, "");
+        boost::asio::ip::tcp::resolver::query externalAddressQuery(boost::asio::ip::tcp::v4(), externalAddress, "");
         boost::system::error_code ec;
         boost::asio::ip::tcp::resolver::iterator endPoint = resolver.resolve(externalAddressQuery, ec);
         if (endPoint == end || ec)
@@ -508,7 +508,7 @@ bool LoadRealmInfo()
         std::string localAddress = fields[3].GetString();
         TC_LOG_INFO("server.worldserver", "Local address: %s", localAddress.c_str());
 
-        boost::asio::ip::tcp::resolver::query localAddressQuery(ip::tcp::v4(), localAddress, "");
+        boost::asio::ip::tcp::resolver::query localAddressQuery(boost::asio::ip::tcp::v4(), localAddress, "");
         endPoint = resolver.resolve(localAddressQuery, ec);
         if (endPoint == end || ec)
         {
