@@ -45,7 +45,16 @@ namespace
 
         uri += genericPath;
 
-        return Trinity::make_unique_ptr_with_deleter<&::OSSL_STORE_close>(OSSL_STORE_open(uri.c_str(), passwordCallback, passwordCallbackData, nullptr, nullptr));
+        TC_LOG_INFO("server.ssl", "Opening OpenSSL store with URI: %s", uri.c_str());
+
+        auto store = Trinity::make_unique_ptr_with_deleter<&::OSSL_STORE_close>(OSSL_STORE_open(uri.c_str(), passwordCallback, passwordCallbackData, nullptr, nullptr));
+        if (!store)
+        {
+            auto err = GetLastOpenSSLError();
+            TC_LOG_ERROR("server.ssl", "OSSL_STORE_open failed: %s", err.message().c_str());
+        }
+
+        return store;
     }
 
     boost::system::error_code GetLastOpenSSLError()
