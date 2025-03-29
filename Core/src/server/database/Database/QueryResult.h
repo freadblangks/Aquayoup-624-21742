@@ -21,6 +21,8 @@
 
 #include <memory>
 #include "Field.h"
+#include "MySQLHacks.h"
+#include "MySQLWorkaround.h"
 
 #ifdef _WIN32
   #include <winsock2.h>
@@ -94,7 +96,7 @@ class TC_DATABASE_API PreparedResultSet
         MYSQL_STMT* m_stmt;
         MYSQL_RES* m_metadataResult;    ///< Field metadata, returned by mysql_stmt_result_metadata
 
-        my_bool* m_isNull;
+        MySQLBool* m_isNull;
         unsigned long* m_length;
 
         void CleanUp();
