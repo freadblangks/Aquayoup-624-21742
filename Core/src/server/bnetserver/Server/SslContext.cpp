@@ -86,7 +86,7 @@ bool Battlenet::SslContext::Initialize()
     if (!store)
     {
         err = GetLastOpenSSLError();
-        TC_LOG_ERROR("server.ssl", "OSSL_STORE_open failed: {}", err.message());
+        TC_LOG_ERROR("server.ssl", "OSSL_STORE_open failed: %s", err.message().c_str());
         return false;
     }
 
