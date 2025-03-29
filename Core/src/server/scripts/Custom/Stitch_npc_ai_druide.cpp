@@ -657,7 +657,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 			}
 			void Mouvement_Caster(uint32 diff)
 			{
-				if (!UpdateVictim() || me->HasUnitState(UNIT_STATE_CASTING) || AuraFigé())
+				if (!UpdateVictim() || me->HasUnitState(UNIT_STATE_CASTING) || AuraFige())
 					return;
 
 				Mana = me->GetPower(POWER_MANA);
@@ -668,7 +668,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 				{
 					// Mouvement aléatoire si cible < 6m & Mana > 5% --------------------------------------------------------------------------------------------------
 
-					if ((Dist <6) && (Mana > MaxMana / 20) && !AuraFigé())
+					if ((Dist <6) && (Mana > MaxMana / 20) && !AuraFige())
 					{
 						me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISABLE_MOVE);						// UNROOT
 						
@@ -735,7 +735,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 			}
 			void Mouvement_Ours(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || AuraFige())
 					return;
 
 				Mana = me->GetPower(POWER_MANA);
@@ -745,7 +745,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 				DoMeleeAttackIfReady();														// Combat en mélée
 
 				// Si la cible >= 8m (pour éviter bug de rester figé) ---------------------------------------------------------------------------------------------
-				if (Dist >= 8 && Cooldown_Anti_Bug_Figer <= diff && !AuraFigé())
+				if (Dist >= 8 && Cooldown_Anti_Bug_Figer <= diff && !AuraFige())
 				{
 					float x = 0.0f, y = 0.0f, z = 0.0f;
 					uint32 mapid = 0;
@@ -796,7 +796,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 
 				if (Cooldown_Anti_Bug_Figer <= diff)
 				{
-					if (Dist >= 6 && !AuraFigé())
+					if (Dist >= 6 && !AuraFige())
 					{
 						float x = 0.0f, y = 0.0f, z = 0.0f;
 						uint32 mapid = 0;
@@ -824,7 +824,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 				else Cooldown_Anti_Bug_Figer -= diff;
 
 				// Si la cible est entre 8 & 20m : Griffure bondissante --------------------------------------------------------------------------------------------------------
-				if (Cooldown_Charge <= diff && !AuraFigé())
+				if (Cooldown_Charge <= diff && !AuraFige())
 				{
 					if ((Dist >= 8) && (Dist <= 20))
 					{
@@ -842,7 +842,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 				// Si la cible < 6m : BOND Aleatoire ou tourne au tour de sa victime ------------------------------------------------------------------------------------------
 				if (Cooldown_ResteADistance <= diff)
 				{
-					if (Dist < 6 && !AuraFigé())
+					if (Dist < 6 && !AuraFige())
 					{
 						if (AuraLenteur() == false && !Interieur())
 						{
@@ -867,7 +867,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 			}
 			void Mouvement_Treant(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || AuraFige())
 					return;
 
 				Mana = me->GetPower(POWER_MANA);
@@ -1072,7 +1072,7 @@ public: Stitch_npc_ai_druide() : CreatureScript("Stitch_npc_ai_druide") { }
 					) return true;
 				else return false;
 			}
-			bool AuraFigé()
+			bool AuraFige()
 			{
 				if (me->HasAura(122)		// Nova de givre
 					|| me->HasAura(3600)	// Totem de lien terrestre

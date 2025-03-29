@@ -549,7 +549,7 @@ public: Stitch_npc_ai_chaman() : CreatureScript("Stitch_npc_ai_chaman") { }
 			}
 			void Mouvement_Caster(uint32 diff)
 			{
-				if (!UpdateVictim() || me->HasUnitState(UNIT_STATE_CASTING) || AuraFigé())
+				if (!UpdateVictim() || me->HasUnitState(UNIT_STATE_CASTING) || AuraFige())
 					return;
 
 				Mana = me->GetPower(POWER_MANA);
@@ -625,7 +625,7 @@ public: Stitch_npc_ai_chaman() : CreatureScript("Stitch_npc_ai_chaman") { }
 			}
 			void Mouvement_Contact(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || AuraFige())
 					return;
 
 				Mana = me->GetPower(POWER_MANA);
@@ -637,7 +637,7 @@ public: Stitch_npc_ai_chaman() : CreatureScript("Stitch_npc_ai_chaman") { }
 				// ------ ALLER A LA CIBLE -------------------------------------------------------------------------------------------------------------------------
 				if (Cooldown_Anti_Bug_Figer <= diff)
 				{
-					if (Dist >= ResteADistance && !AuraFigé())
+					if (Dist >= ResteADistance && !AuraFige())
 					{
 						float x = 0.0f, y = 0.0f, z = 0.0f;
 						uint32 mapid = 0;
@@ -685,7 +685,7 @@ public: Stitch_npc_ai_chaman() : CreatureScript("Stitch_npc_ai_chaman") { }
 				if (Dist < 8 && (Cooldown_ResteADistance <= diff))
 				{
 					Random = urand(1, 5);
-					if ((Random == 1 || Random == 2) && !AuraFigé())
+					if ((Random == 1 || Random == 2) && !AuraFige())
 					{
 						Tourne_Au_Tour_En_Combat();											// 2 chances sur 5 tourne au tour de sa victime
 					}
@@ -870,7 +870,7 @@ public: Stitch_npc_ai_chaman() : CreatureScript("Stitch_npc_ai_chaman") { }
 					) return true;
 				else return false;
 			}
-			bool AuraFigé()
+			bool AuraFige()
 			{
 				if (me->HasAura(122)		// Nova de givre
 					|| me->HasAura(3600)	// Totem de lien terrestre

@@ -433,7 +433,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 			// ###### Reste a distance mais va au contact si la cible ce raproche ##################################################################################
 			void Mouvement_Caster_Puis_Contact(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé() /*|| me->HasUnitState(UNIT_STATE_CASTING)*/)
+				if (!UpdateVictim() || AuraFige() /*|| me->HasUnitState(UNIT_STATE_CASTING)*/)
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -475,7 +475,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 			// ###### Caster , reste a distance ####################################################################################################################
 			void Mouvement_Caster(uint32 diff)
 			{
-				if (!UpdateVictim() /*|| me->HasUnitState(UNIT_STATE_CASTING)*/ || AuraFigé() )
+				if (!UpdateVictim() /*|| me->HasUnitState(UNIT_STATE_CASTING)*/ || AuraFige() )
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -610,7 +610,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 					) return true;
 				else return false;
 			}
-			bool AuraFigé()
+			bool AuraFige()
 			{
 				if (me->HasAura(122)		// Nova de givre
 					|| me->HasAura(3600)	// Totem de lien terrestre

@@ -514,7 +514,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 				ForceBranche = me->GetCreatureTemplate()->pickpocketLootId;
 
 					// Bond aléatoire si cible < 6m & mana > 10%  ---------------------------------------------------------------------------------------------
-					if (Cooldown_bond_aleatoire_25m <= diff && !AuraFigé())
+					if (Cooldown_bond_aleatoire_25m <= diff && !AuraFige())
 					{
 						if (Dist <6 && (Mana > MaxMana / 10) && (ForceBranche == 10))
 						{
@@ -539,7 +539,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 				else Cooldown_ResteADistance_Teleportation -= diff;
 
 				// ------------------------------------------------------------------------------------------------------------------------------------------------
-				if (Cooldown_ResteADistance <= diff && !AuraFigé())
+				if (Cooldown_ResteADistance <= diff && !AuraFige())
 				{
 					// Mouvement aléatoire si cible < 6m & mana > 10%  
 					if (Dist <=5 && (Mana > MaxMana / 10) && (ForceBranche != 7 && ForceBranche <12 ))
@@ -759,7 +759,7 @@ public: Stitch_npc_ai_caster() : CreatureScript("Stitch_npc_ai_caster") { }
 					) return true;
 				else return false;
 			}
-			bool AuraFigé()
+			bool AuraFige()
 			{
 				if (me->HasAura(122)		// Nova de givre
 					|| me->HasAura(3600)	// Totem de lien terrestre

@@ -549,7 +549,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 			}
 			void Mouvement_Contact(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || AuraFige())
 					return;
 
 				Rage = me->GetPower(POWER_RAGE);
@@ -604,7 +604,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 				if ((Dist < 8) && (Cooldown_ResteADistance <= diff) && (BrancheSpe != 3))
 				{
 					Random = urand(1, 5);
-					if ((Random == 1 || Random == 2) && !AuraFigé())
+					if ((Random == 1 || Random == 2) && !AuraFige())
 					{
 						Tourne_Au_Tour_En_Combat();											// 2 chances sur 5 tourne au tour de sa victime
 					}
@@ -738,7 +738,7 @@ public: Stitch_npc_ai_guerrier() : CreatureScript("Stitch_npc_ai_guerrier") { }
 					) return true;
 				else return false;
 			}
-			bool AuraFigé()
+			bool AuraFige()
 			{
 				if (me->HasAura(122)		// Nova de givre
 					|| me->HasAura(3600)	// Totem de lien terrestre

@@ -3132,7 +3132,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// ###### Caster , reste a distance ####################################################################################################################
 			void Mouvement_Caster(uint32 diff)
 			{
-				if (!UpdateVictim() || me->HasUnitState(UNIT_STATE_CASTING) || AuraFigé() == true)
+				if (!UpdateVictim() || me->HasUnitState(UNIT_STATE_CASTING) || AuraFige() == true)
 					return;
 
 
@@ -3225,7 +3225,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// ###### Reste a distance mais va au contact si la cible ce raproche , spellB plus rapide de loin #####################################################
 			void Mouvement_Caster_Puis_Contact(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé() == true/*|| me->HasUnitState(UNIT_STATE_CASTING)*/)
+				if (!UpdateVictim() || AuraFige() == true/*|| me->HasUnitState(UNIT_STATE_CASTING)*/)
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -3279,7 +3279,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// ###### Va sur la cible et reste au contact , tourne au tour de la cible tres rarement ###############################################################
 			void Mouvement_Contact_Basique(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || AuraFige())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -3336,7 +3336,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// ###### Va sur la cible et reste au contact , tourne au tour de la cible ou passe dans son dos (exemple : felin) #####################################
 			void Mouvement_Contact_Tournant_Aleatoire(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || AuraFige())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -3398,7 +3398,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// ###### Va sur la cible et reste au contact mais recule puis avance périodiquement sur cible en mélée, passe dans le dos pour les cibles caster ######
 			void Mouvement_Contact_Prudent(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || AuraFige())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -3450,7 +3450,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// ###### Va sur la cible et reste au contact mais s'envole puis revient en mélée sur la cible périodiquement  #########################################
 			void Mouvement_Contact_Prudent_Volant(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || AuraFige())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -3491,7 +3491,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// ###### Va sur la cible et reste au contact mais s'eloigne et "Charge périodiquement  ################################################################
 			void Mouvement_Contact_Charges_Multiples(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || AuraFige())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -3568,7 +3568,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// ###### Va sur la cible et reste au contact , recule et revient périodiquement #######################################################################
 			void Mouvement_Contact_Avance_Recule(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || AuraFige())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -3640,7 +3640,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			// ###### Va sur la cible et reste au contact , effectue un bond aléatoire régulierement ###############################################################
 			void Mouvement_Contact_Bondissant(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || AuraFige())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -3717,7 +3717,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			}
 			void Tourne_Au_Tour_Aleatoire(uint32 Distance)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || AuraFige())
 					return;
 
 				if (me->HasUnitState(UNIT_STATE_ROOT) || me->HasUnitState(UNIT_STATE_CONFUSED) || me->HasUnitState(UNIT_STATE_STUNNED) || me->HasUnitState(UNIT_STATE_DISTRACTED) )
@@ -3742,7 +3742,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			}
 			void Tourne_Au_Tour_Aleatoire_Volant(uint32 Distance)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || AuraFige())
 					return;
 
 				if (me->HasUnitState(UNIT_STATE_ROOT) || me->HasUnitState(UNIT_STATE_CONFUSED) || me->HasUnitState(UNIT_STATE_STUNNED) || me->HasUnitState(UNIT_STATE_DISTRACTED))
@@ -3768,7 +3768,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 			}
 			void Recule_ou_Avance(int32 val)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || AuraFige())
 					return;
 
 				if (me->HasUnitState(UNIT_STATE_ROOT) || me->HasUnitState(UNIT_STATE_CONFUSED) || me->HasUnitState(UNIT_STATE_STUNNED) || me->HasUnitState(UNIT_STATE_DISTRACTED))
@@ -4006,7 +4006,7 @@ public: Stitch_npc_ai_mobs() : CreatureScript("Stitch_npc_ai_mobs") { }
 					) return true;
 				else return false;
 			}
-			bool AuraFigé()
+			bool AuraFige()
 			{
 				if (me->HasAura(122)		// Nova de givre
 					|| me->HasAura(3600)	// Totem de lien terrestre
