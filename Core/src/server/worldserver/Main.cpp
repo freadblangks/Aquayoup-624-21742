@@ -474,6 +474,9 @@ bool LoadRealmInfo()
         return false;
 
     Field* fields = result->Fetch();
+    if (!fields)
+        return false;
+
     realm.Name = fields[1].GetString();
     boost::asio::ip::tcp::resolver::query externalAddressQuery(ip::tcp::v4(), fields[2].GetString(), "");
 
@@ -495,7 +498,9 @@ bool LoadRealmInfo()
         return false;
     }
 
-    return false;
+    realm.LocalAddress = (*endPoint).endpoint().address();
+
+    return true;
 }
 
 /// Initialize connection to the databases
