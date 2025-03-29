@@ -91,7 +91,7 @@ char const* GitRevision::GetHotfixesDatabase()
 char const* GitRevision::GetFullVersion()
 {
     return "AquayoupCore rev. " VER_PRODUCTVERSION_STR
-        " (" TRINITY_BUILD_HOST_SYSTEM ", " TRINITY_BUILD_PROCESSOR  ", " TRINITY_LINKAGE_TYPE_STR ")";
+        " (" TRINITY_BUILD_HOST_SYSTEM ", " TRINITY_BUILD_PROCESSOR  ", " _BUILD_DIRECTIVE ", " TRINITY_LINKAGE_TYPE_STR ")";
 }
 
 char const* GitRevision::GetCompanyNameStr()

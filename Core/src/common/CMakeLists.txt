@@ -73,6 +73,7 @@ target_link_libraries(common
     threads
     jemalloc
   PRIVATE
+    trinity-core-interface
     process)
 
 add_dependencies(common revision_data.h)
