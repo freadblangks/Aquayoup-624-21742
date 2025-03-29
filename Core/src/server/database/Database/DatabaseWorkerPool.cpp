@@ -33,16 +33,17 @@ DatabaseWorkerPool<T>::DatabaseWorkerPool()
     : _queue(new ProducerConsumerQueue<SQLOperation*>()),
       _async_threads(0), _synch_threads(0)
 {
-	bool checkForClientVersion = mysql_get_client_version() >= MIN_MYSQL_CLIENT_VERSION;
-
-#if defined(LIBMARIADB)
-    checkForClientVersion = mysql_get_client_version() >= MIN_MARIADB_CLIENT_VERSION;
-#endif
-
     WPFatal(mysql_thread_safe(), "Used MySQL library isn't thread-safe.");
-    WPFatal(checkForClientVersion, "TrinityCore does not support MySQL versions below 5.1");
+
+#if defined(LIBMARIADB)    
+    WPFatal(mysql_get_client_version() >= MIN_MARIADB_CLIENT_VERSION, "TrinityCore does not support MariaDB versions below 10.0.2.");
+    WPFatal(mysql_get_client_version() == MARIADB_PACKAGE_VERSION_ID, "Used MariaDB library version (%s) does not match the version used to compile TrinityCore (%s).",
+        mysql_get_client_info(), MARIADB_PACKAGE_VERSION_ID);
+#else
+    WPFatal(mysql_get_client_version() >= MIN_MYSQL_CLIENT_VERSION, "TrinityCore does not support MySQL versions below 5.7");
     WPFatal(mysql_get_client_version() == MYSQL_VERSION_ID, "Used MySQL library version (%s) does not match the version used to compile TrinityCore (%s).",
         mysql_get_client_info(), MYSQL_SERVER_VERSION);
+#endif
 }
 
 template <class T>
