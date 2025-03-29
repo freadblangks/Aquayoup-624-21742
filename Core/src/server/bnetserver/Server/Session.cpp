@@ -561,12 +561,14 @@ uint32 Battlenet::Session::HandleGetAllValuesForAttribute(game_utilities::v1::Ge
 
 void Battlenet::Session::HandshakeHandler(boost::system::error_code const& error)
 {
+    /*
     if (error)
     {
         TC_LOG_ERROR("session", "%s SSL Handshake failed %s", GetClientInfo().c_str(), error.message().c_str());
         CloseSocket();
         return;
     }
+    */
 
     AsyncRead();
 }
