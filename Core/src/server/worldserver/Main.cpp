@@ -469,36 +469,61 @@ bool LoadRealmInfo()
     boost::asio::ip::tcp::resolver resolver(*ioContext);
     boost::asio::ip::tcp::resolver::iterator end;
 
+    TC_LOG_INFO("server.worldserver", "Loading realm info for realm ID %u", realm.Id.Realm);
+
     QueryResult result = LoginDatabase.PQuery("SELECT id, name, address, localAddress, localSubnetMask, port, icon, flag, timezone, allowedSecurityLevel, population, gamebuild, Region, Battlegroup FROM realmlist WHERE id = %u", realm.Id.Realm);
     if (!result)
+    {
+        TC_LOG_ERROR("server.worldserver", "Failed to query realm info for realm ID %u", realm.Id.Realm);
         return false;
+    }
 
     Field* fields = result->Fetch();
     if (!fields)
-        return false;
-
-    realm.Name = fields[1].GetString();
-    boost::asio::ip::tcp::resolver::query externalAddressQuery(ip::tcp::v4(), fields[2].GetString(), "");
-
-    boost::system::error_code ec;
-    boost::asio::ip::tcp::resolver::iterator endPoint = resolver.resolve(externalAddressQuery, ec);
-    if (endPoint == end || ec)
     {
-        TC_LOG_ERROR("server.worldserver", "Could not resolve address %s", fields[2].GetString().c_str());
+        TC_LOG_ERROR("server.worldserver", "Failed to fetch fields for realm ID %u", realm.Id.Realm);
         return false;
     }
 
-    realm.ExternalAddress = (*endPoint).endpoint().address();
-
-    boost::asio::ip::tcp::resolver::query localAddressQuery(ip::tcp::v4(), fields[3].GetString(), "");
-    endPoint = resolver.resolve(localAddressQuery, ec);
-    if (endPoint == end || ec)
+    try
     {
-        TC_LOG_ERROR("server.worldserver", "Could not resolve address %s", fields[3].GetString().c_str());
+        realm.Name = fields[1].GetString();
+        TC_LOG_INFO("server.worldserver", "Realm name: %s", realm.Name.c_str());
+
+        std::string externalAddress = fields[2].GetString();
+        TC_LOG_INFO("server.worldserver", "External address: %s", externalAddress.c_str());
+
+        boost::asio::ip::tcp::resolver::query externalAddressQuery(ip::tcp::v4(), externalAddress, "");
+        boost::system::error_code ec;
+        boost::asio::ip::tcp::resolver::iterator endPoint = resolver.resolve(externalAddressQuery, ec);
+        if (endPoint == end || ec)
+        {
+            TC_LOG_ERROR("server.worldserver", "Could not resolve external address %s", externalAddress.c_str());
+            return false;
+        }
+
+        realm.ExternalAddress = (*endPoint).endpoint().address();
+        TC_LOG_INFO("server.worldserver", "Resolved external address: %s", realm.ExternalAddress.to_string().c_str());
+
+        std::string localAddress = fields[3].GetString();
+        TC_LOG_INFO("server.worldserver", "Local address: %s", localAddress.c_str());
+
+        boost::asio::ip::tcp::resolver::query localAddressQuery(ip::tcp::v4(), localAddress, "");
+        endPoint = resolver.resolve(localAddressQuery, ec);
+        if (endPoint == end || ec)
+        {
+            TC_LOG_ERROR("server.worldserver", "Could not resolve local address %s", localAddress.c_str());
+            return false;
+        }
+
+        realm.LocalAddress = (*endPoint).endpoint().address();
+        TC_LOG_INFO("server.worldserver", "Resolved local address: %s", realm.LocalAddress.to_string().c_str());
+    }
+    catch (const std::exception& e)
+    {
+        TC_LOG_ERROR("server.worldserver", "Exception caught while loading realm info: %s", e.what());
         return false;
     }
-
-    realm.LocalAddress = (*endPoint).endpoint().address();
 
     return true;
 }
