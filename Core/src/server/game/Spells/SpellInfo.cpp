@@ -2704,7 +2704,7 @@ std::vector<SpellInfo::CostData> SpellInfo::CalcPowerCost(Unit const* caster, Sp
 				case POWER_RAGE:
 				case POWER_FOCUS:
 				case POWER_ENERGY:
-					powerCost += int32(CalculatePct(caster->GetMaxPower(Powers(power->PowerType)), power->ManaCostPercentage)); // Reste en % parce que limité a =<100 pour un level max de 100
+					powerCost += int32(CalculatePct(caster->GetMaxPower(Powers(power->PowerType)), power->ManaCostPercentage)); // Reste en % parce que limite a =<100 pour un level max de 100
 					break;
 				case POWER_RUNES:
 				case POWER_RUNIC_POWER:

@@ -1,15 +1,15 @@
 ////#########################################################################################################################################################################################################################################
 // Copyright (C) Juillet 2020 Stitch pour https:\\Aquayoup.123.fr
-// AI generique npc par classe : Mélée Ver 2022-05-15 (warrior simple, combat au corp a corp)
+// AI generique npc par classe : Melee Ver 2022-05-15 (warrior simple, combat au corp a corp)
 // 
 // ScriptName = Stitch_npc_ai_melee : npc d'exemple : 15100012
 // spell1 : Attaque principale
 // spell2 : Dot
-// spell3 : spell lancé a l'agro
-// spell4 : spell lancé a l'évade ou respawn
+// spell3 : spell lance a l'agro
+// spell4 : spell lance a l'evade ou respawn
 // spell5 : Buf
 //
-// Si spell1 = 0 : tirage aléatoire des spells
+// Si spell1 = 0 : tirage aleatoire des spells
 //
 // Il est possible d'influencer le temp entre 2 cast avec `BaseAttackTime` & `RangeAttackTime` 
 // UPDATE `creature_template` SET `spell1` = ATTAQUE , `spell2` =  DOT , `spell3` =  AGRO, `spell4` = EVADE , `spell5` = BUF , `ScriptName` = 'Stitch_npc_ai_melee',`AIName` = '' WHERE (entry = 2237);
@@ -20,7 +20,7 @@
 #include "CreatureTextMgr.h"
 
 //################################################################################################
-//StitchAI AI Mélée
+//StitchAI AI Melee
 //################################################################################################
 
 class Stitch_npc_ai_melee : public CreatureScript
@@ -58,13 +58,13 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 
 			// Spells
 			uint32 Buf_1 = 12712;																			// Soldat aguerri
-			uint32 liste_Buf[5] = { 12712, 6673, 1160, 159362, 8599 };										// Soldat aguerri 12712 (2 mains= dmg+15%), Cri de guerre 6673, Cri démoralisant 1160 (8s 10m Soi-même), Folie sanguinaire 159362 (pv 1%/3s), Enrager 8599
+			uint32 liste_Buf[5] = { 12712, 6673, 1160, 159362, 8599 };										// Soldat aguerri 12712 (2 mains= dmg+15%), Cri de guerre 6673, Cri demoralisant 1160 (8s 10m Soi-même), Folie sanguinaire 159362 (pv 1%/3s), Enrager 8599
 			uint32 Spell_agro = 0;
 			uint32 liste_agro[3] = { 100, 355, 145763 };													// Charge 100, Provocation 355, Bondir 8-40m 145763
 			uint32 Spell_1 = 0;
-			uint32 liste_spell_1[8] = { 29426, 126799, 118326, 172851, 38742, 99409, 100431, 115530 };		// Frappe héroïque 29426, Frappe tranchante 126799, Attaque vicieuse 118326, Enchaînement 172851, Enchaînement gangrené 38742, Enchaînement noir 99409, Enchaînement enflammé 100431, Fendoir spirituel 115530
+			uint32 liste_spell_1[8] = { 29426, 126799, 118326, 172851, 38742, 99409, 100431, 115530 };		// Frappe heroïque 29426, Frappe tranchante 126799, Attaque vicieuse 118326, Enchaînement 172851, Enchaînement gangrene 38742, Enchaînement noir 99409, Enchaînement enflamme 100431, Fendoir spirituel 115530
 			uint32 Spell_2 = 0;
-			uint32 liste_spell_2[9] = { 127171, 131662, 8147, 118532, 125436, 772, 772, 8147, 8147 };		// Fendoir vicieux 15/lvl + 2/lvl/1s cumulable 5 fois 127171, Coups de couteau 131662, Entaille infectée 118532, Découpe d'os 125436, Pourfendre 772, Coup de tonnerre 8147
+			uint32 liste_spell_2[9] = { 127171, 131662, 8147, 118532, 125436, 772, 772, 8147, 8147 };		// Fendoir vicieux 15/lvl + 2/lvl/1s cumulable 5 fois 127171, Coups de couteau 131662, Entaille infectee 118532, Decoupe d'os 125436, Pourfendre 772, Coup de tonnerre 8147
 			uint32 Spell_evade = 137573;																	// vitesse (+70%/4s) 
 			uint32 Spell_trop_Loin = 100;																	// Charge 100
 
@@ -89,26 +89,26 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 				{
 					me->CastSpell(me, Tmp, true);
 				}
-				Arme_rangé();
+				Arme_range();
 				Retire_changeform();
 			}
 
 			void Init_AI()
 			{
-				// Message a l'agro forcé par spell(8)
+				// Message a l'agro force par spell(8)
 				if (me->m_spells[7] == 1) { MessageAlagro = 1; }
 
 				// Spell contre attaque si PV bas
 				if (me->m_spells[6] != 0) { Spell_ContreAttaque = me->m_spells[6]; }
 
 				// ################################################################################################################################################
-				// Tirages aléatoires des spells
+				// Tirages aleatoires des spells
 				// ################################################################################################################################################
-				// Si m_spells[0] != 0 alors affectation aléatoire de tous les spells (prédéfinis dans le core) , sinon utilisera les spell défini dans creature_template spells[1 a 5]
+				// Si m_spells[0] != 0 alors affectation aleatoire de tous les spells (predefinis dans le core) , sinon utilisera les spell defini dans creature_template spells[1 a 5]
 				// m_spells[0] : Attaque principale						- Correspond a spell1 de creature_template
 				// m_spells[1] : Dot									- Correspond a spell2 de creature_template
-				// m_spells[2] : spell lancé a l'agro					- Correspond a spell3 de creature_template
-				// m_spells[3] : spell lancé a l'évade ou respawn		- Correspond a spell4 de creature_template
+				// m_spells[2] : spell lance a l'agro					- Correspond a spell3 de creature_template
+				// m_spells[3] : spell lance a l'evade ou respawn		- Correspond a spell4 de creature_template
 				// m_spells[4] : Buf									- Correspond a spell5 de creature_template
 
 				if (me->m_spells[0] == 0) 
@@ -171,14 +171,14 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 				//Retire certaines Aura, emotes & Bytes a l'agro
 				me->RemoveAura(80264);	// Retire Marche a pas de loup
 				me->RemoveAura(152891);	// Retire Avance a pas de loup invisible
-				me->RemoveAura(104015);	// Retire afaissé / Stun
-				me->RemoveAura(153964);	// Retire agenouillé, avec evade
-				me->RemoveAura(42648);	// Retire Dort allongé + zzz
-				me->RemoveAura(18795);	// Retire Dort allongé + zzz 
+				me->RemoveAura(104015);	// Retire afaisse / Stun
+				me->RemoveAura(153964);	// Retire agenouille, avec evade
+				me->RemoveAura(42648);	// Retire Dort allonge + zzz
+				me->RemoveAura(18795);	// Retire Dort allonge + zzz 
 				me->RemoveAura(43905);	// Retire Ivre
 				me->RemoveAura(101090);	// Retire Danse
 				me->HandleEmoteCommand(0);
-				me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // Autre façon de retirer des émotes pour les cas particuliers
+				me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // Autre façon de retirer des emotes pour les cas particuliers
 				me->SetByteValue(UNIT_FIELD_BYTES_1, 0, 0);
 				me->SetByteValue(UNIT_FIELD_BYTES_2, 0, 0);
 
@@ -188,7 +188,7 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 				Start_Agro = 0;
 				RetireBugDeCombat();
 				me->AddUnitState(UNIT_STATE_EVADE);
-				//me->SetSpeedRate(MOVE_RUN, 1.5f);													// Vitesse de déplacement
+				//me->SetSpeedRate(MOVE_RUN, 1.5f);													// Vitesse de deplacement
 				me->GetMotionMaster()->MoveTargetedHome();											// Retour home
 				me->RemoveAllControlled();															// renvois pet
 
@@ -201,8 +201,8 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 			void JustReachedHome() override
 			{
 				me->SetReactState(REACT_AGGRESSIVE);
-				Arme_rangé();
-				//me->SetSpeedRate(MOVE_RUN, 1.01f);								// Vitesse par defaut définit a 1.01f puisque le patch modification par type,famille test si 1.0f
+				Arme_range();
+				//me->SetSpeedRate(MOVE_RUN, 1.01f);								// Vitesse par defaut definit a 1.01f puisque le patch modification par type,famille test si 1.0f
 				Retire_changeform();
 				if (Spell_evade != 0) { me->CastSpell(me, Spell_evade, true); }
 			}
@@ -303,7 +303,7 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 						if (Cooldown_Spell1 <= diff && Spell_1 !=0)
 						{
 							me->CastSpell(victim, Spell_1, true);
-							DoMeleeAttackIfReady();																// Combat en mélée
+							DoMeleeAttackIfReady();																// Combat en melee
 							Cooldown_Spell1 = 3000;
 						}
 						else Cooldown_Spell1 -= diff;
@@ -373,7 +373,7 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 				{
 					RetireBugDeCombat();
 					me->AddUnitState(UNIT_STATE_EVADE);
-					EnterEvadeMode(EVADE_REASON_SEQUENCE_BREAK);						// Quite le combat si la cible > 30m (Caster & Mélée) ou > 40m de home
+					EnterEvadeMode(EVADE_REASON_SEQUENCE_BREAK);						// Quite le combat si la cible > 30m (Caster & Melee) ou > 40m de home
 				}
 			}
 			void Mouvement_Contact(uint32 diff)
@@ -384,9 +384,9 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 				Unit* victim = me->GetVictim();
 				Dist = me->GetDistance(victim);
 
-				//DoMeleeAttackIfReady();													// Combat en mélée
+				//DoMeleeAttackIfReady();													// Combat en melee
 
-				// Si la cible >= 6m (pour éviter bug de rester figé) ---------------------------------------------------------------------------------------------
+				// Si la cible >= 6m (pour eviter bug de rester fige) ---------------------------------------------------------------------------------------------
 				if (Cooldown_Anti_Bug_Figer <= diff)
 				{
 					if (Dist >= 6)
@@ -509,7 +509,7 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 			}
 			void Bonus_Degat_Arme_Done(int val) // 
 			{
-				// +- Bonus en % de degat des armes infligées a victim
+				// +- Bonus en % de degat des armes infligees a victim
 				me->HandleStatModifier(UNIT_MOD_ATTACK_POWER, TOTAL_PCT, val, true);
 				me->HandleStatModifier(UNIT_MOD_DAMAGE_OFFHAND, TOTAL_PCT, val, true);
 				me->HandleStatModifier(UNIT_MOD_DAMAGE_RANGED, TOTAL_PCT, val, true);
@@ -594,9 +594,9 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 				me->RemoveAura(Spell_changeform_arbre_de_vie);
 				me->RemoveAura(Spell_changeform_treant);
 			}
-			void Arme_rangé()
+			void Arme_range()
 			{
-				// Certains Modelid posent probleme et seront donc ignorés
+				// Certains Modelid posent probleme et seront donc ignores
 				if (Npc_Model == 6824 || Npc_Model == 6825 || Npc_Model == 6821 || Npc_Model == 5773 || Npc_Model == 937 || Npc_Model == 16861)
 					return;
 
@@ -604,7 +604,7 @@ public: Stitch_npc_ai_melee() : CreatureScript("Stitch_npc_ai_melee") { }
 				if ((Npc_Type != CREATURE_TYPE_HUMANOID && Npc_Type != CREATURE_TYPE_UNDEAD) || Npc_Family != 0)
 					return;
 
-				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangée
+				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangee
 			}
 		};
 

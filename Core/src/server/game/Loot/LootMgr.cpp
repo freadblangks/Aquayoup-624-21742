@@ -263,7 +263,7 @@ void LootStore::CheckLootRefs(LootIdSet* ref_set) const
 void LootStore::ReportUnusedIds(LootIdSet const& lootIdSet) const
 {
 	/*
-	Desactivé a cause de npc_ai "pickpocketing_loot_template" )
+	Desactive a cause de npc_ai "pickpocketing_loot_template" )
 
     // all still listed ids isn't referenced
     for (LootIdSet::const_iterator itr = lootIdSet.begin(); itr != lootIdSet.end(); ++itr)
@@ -279,7 +279,7 @@ void LootStore::ReportNonExistingId(uint32 lootId) const
 
 void LootStore::ReportNonExistingId(uint32 lootId, const char* ownerType, uint32 ownerId) const
 {
-	if (lootId > 300) //Stitch pickpocketloot <300 utilisé par npc_ai_ 
+	if (lootId > 300) //Stitch pickpocketloot <300 utilise par npc_ai_ 
 	{
 		TC_LOG_ERROR("sql.sql", "Table '%s' Entry %d does not exist but it is used by %s %d", GetName(), lootId, ownerType, ownerId);
 	}

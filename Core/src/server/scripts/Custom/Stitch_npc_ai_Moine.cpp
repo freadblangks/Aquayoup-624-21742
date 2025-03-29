@@ -5,7 +5,7 @@
 // Necessite dans Creature_Template :
 // Minimun  : UPDATE `creature_template` SET `ScriptName` = 'Stitch_npc_ai_voleur',`AIName` = '' WHERE (entry = 15100010);
 // Optionel : UPDATE `creature_template` SET `HealthModifier` = 2, `ManaModifier` = 3, `ArmorModifier` = 1, `DamageModifier` = 2,`BaseAttackTime` = 2000, `RangeAttackTime` = 2000 WHERE(entry = 15100010);
-// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 forcé), pickpocketloot = 2 (branche2 forcé), etc
+// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 force), pickpocketloot = 2 (branche2 force), etc
 //###########################################################################################################################################################################################################################################
 // # npc de Test Stitch_npc_ai_moine  .npc 15100011
 // REPLACE INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `femaleName`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `exp_unk`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `dmgschool`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `type_flags2`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `HoverHeight`, `HealthModifier`, `HealthModifierExtra`, `ManaModifier`, `ManaModifierExtra`, `ArmorModifier`, `DamageModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES
@@ -30,8 +30,8 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 		{
 			Stitch_npc_ai_moineAI(Creature* creature) : ScriptedAI(creature) { }
 
-			uint32 BrancheSpe = 1;													// Choix de la Spécialisation : Maitre-Brasseur = 1, Tisse-Brume = 2, Marche-vent =3
-			uint32 NbrDeSpe = 3;													// Nombre de Spécialisations
+			uint32 BrancheSpe = 1;													// Choix de la Specialisation : Maitre-Brasseur = 1, Tisse-Brume = 2, Marche-vent =3
+			uint32 NbrDeSpe = 3;													// Nombre de Specialisations
 			uint32 ForceBranche;
 			uint32 Random;
 			uint32 DistanceDeCast = 40;												// Distance max a laquelle un npc attaquera , au dela il quite le combat
@@ -59,21 +59,21 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 			uint32 Cooldown_Spell_ContreAttaque_defaut = 8000;
 
 			// Spells Divers
-			uint32 Buf_branche1 = 115069;											// Posture du buffle vigoureux 115069, Posture du tigre féroce 103985
+			uint32 Buf_branche1 = 115069;											// Posture du buffle vigoureux 115069, Posture du tigre feroce 103985
 			uint32 Buf_branche1a = 0;
-			uint32 Liste_Buf_branche1a[2] = { 116781, 115203 };						// Héritage du tigre blanc 116781 (F,AG,Int +10%), Boisson fortifiante 115203 (pv +20%), 
+			uint32 Liste_Buf_branche1a[2] = { 116781, 115203 };						// Heritage du tigre blanc 116781 (F,AG,Int +10%), Boisson fortifiante 115203 (pv +20%), 
 			
-			uint32 Buf_branche2 = 115070;											// Posture du serpent avisé 115070
+			uint32 Buf_branche2 = 115070;											// Posture du serpent avise 115070
 			uint32 Buf_branche2a = 0;													// 
 			uint32 Liste_Buf_branche2a[2] = { 115203, 115203 };						// Boisson fortifiante 115203 (pv +20%), Cocon de vie 116849
 
-			uint32 Buf_branche3 = 103985;											// Posture du tigre féroce 103985
+			uint32 Buf_branche3 = 103985;											// Posture du tigre feroce 103985
 			uint32 Buf_branche3a = 0;													// 
-			uint32 Liste_Buf_branche3a[3] = { 115176, 115203, 115203 };				// Méditation zen 115176 (degat -90%/8s), Boisson fortifiante 115203 (pv +20%)
+			uint32 Liste_Buf_branche3a[3] = { 115176, 115203, 115203 };				// Meditation zen 115176 (degat -90%/8s), Boisson fortifiante 115203 (pv +20%)
 
-			uint32 Spell_Heal1 = 116694;  											// Déferlante de brume 116694
-			uint32 Spell_Heal2 = 115151;  											// Brume de rénovation 115151
-			uint32 Spell_Heal3 = 116694;  											// Déferlante de brume 116694
+			uint32 Spell_Heal1 = 116694;  											// Deferlante de brume 116694
+			uint32 Spell_Heal2 = 115151;  											// Brume de renovation 115151
+			uint32 Spell_Heal3 = 116694;  											// Deferlante de brume 116694
 			uint32 Spell_Trop_Loin = 109132;										// Roulade 109132
 
 			// Spells Maitre-Brasseur
@@ -115,36 +115,36 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 				{
 					me->CastSpell(me, Tmp, true);
 				}
-				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangée
+				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangee
 			}
 
 			void Init_AI()
 			{
 
-				// Message a l'agro forcé par spell(8)
+				// Message a l'agro force par spell(8)
 				if (me->m_spells[7] == 1) { MessageAlagro = 1; }
 
 				// Spell contre attaque si PV bas
 				if (me->m_spells[6] != 0) { Spell_ContreAttaque = me->m_spells[6]; }
 
 				// ################################################################################################################################################
-				// Forcer le choix de la Spécialisation par creature_template->pickpocketloot
+				// Forcer le choix de la Specialisation par creature_template->pickpocketloot
 				// ################################################################################################################################################
-				// Forcer le choix de la Spécialisation par creature_template->pickpocketloot
+				// Forcer le choix de la Specialisation par creature_template->pickpocketloot
 				ForceBranche = me->GetCreatureTemplate()->pickpocketLootId;							// creature_template->pickpocketloot
-				if (ForceBranche == 1) { BrancheSpe = 1; }											// branche1 forcé
-				else if (ForceBranche == 2) { BrancheSpe = 2; }										// branche2 forcé 
-				else if (ForceBranche == 3) { BrancheSpe = 3; }										// branche2 forcé 
+				if (ForceBranche == 1) { BrancheSpe = 1; }											// branche1 force
+				else if (ForceBranche == 2) { BrancheSpe = 2; }										// branche2 force 
+				else if (ForceBranche == 3) { BrancheSpe = 3; }										// branche2 force 
 				else
 				{
-					// Sinon Choix de la Spécialisation Aléatoire
+					// Sinon Choix de la Specialisation Aleatoire
 					BrancheSpe = urand(1, NbrDeSpe);
 				}
 
 				if ((BrancheSpe > NbrDeSpe) || (BrancheSpe == 0)) { BrancheSpe = 1; }
 
 				// ################################################################################################################################################
-				// Tirages aléatoires des spells
+				// Tirages aleatoires des spells
 				// ################################################################################################################################################
 				// Spell a lancer a l'agro ------------------------------------------------------------------------------------------------------------------------
 
@@ -200,7 +200,7 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 				me->SetReactState(REACT_AGGRESSIVE);
 
 				Init_AI();
-				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangée
+				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangee
 			}
 
 			void EnterCombat(Unit* /*who*/) override
@@ -218,14 +218,14 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 																					//Retire certaines Aura, emotes & Bytes a l'agro
 				me->RemoveAura(80264);	// Retire Marche a pas de loup
 				me->RemoveAura(152891);	// Retire Avance a pas de loup invisible
-				me->RemoveAura(104015);	// Retire afaissé / Stun
-				me->RemoveAura(153964);	// Retire agenouillé, avec evade
-				me->RemoveAura(42648);	// Retire Dort allongé + zzz
-				me->RemoveAura(18795);	// Retire Dort allongé + zzz 
+				me->RemoveAura(104015);	// Retire afaisse / Stun
+				me->RemoveAura(153964);	// Retire agenouille, avec evade
+				me->RemoveAura(42648);	// Retire Dort allonge + zzz
+				me->RemoveAura(18795);	// Retire Dort allonge + zzz 
 				me->RemoveAura(43905);	// Retire Ivre
 				me->RemoveAura(101090);	// Retire Danse
 				me->HandleEmoteCommand(0);
-				me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // Autre façon de retirer des émotes pour les cas particuliers
+				me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // Autre façon de retirer des emotes pour les cas particuliers
 				me->SetByteValue(UNIT_FIELD_BYTES_1, 0, 0);
 				me->SetByteValue(UNIT_FIELD_BYTES_2, 0, 0);
 
@@ -235,7 +235,7 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 				Start_Agro = 0;
 				RetireBugDeCombat();
 				me->AddUnitState(UNIT_STATE_EVADE);
-				//me->SetSpeedRate(MOVE_RUN, 1.5f);										// Vitesse de déplacement
+				//me->SetSpeedRate(MOVE_RUN, 1.5f);										// Vitesse de deplacement
 				me->GetMotionMaster()->MoveTargetedHome();								// Retour home
 				me->RemoveAllControlled();												// renvois pet
 
@@ -260,9 +260,9 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 				Bonus_Armure(100);														// Retire bonus d'armure
 				VisuelPowerMana();
 
-				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangée
+				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangee
 				me->SetReactState(REACT_AGGRESSIVE);
-				//me->SetSpeedRate(MOVE_RUN, 1.01f);										// Vitesse par defaut définit a 1.01f puisque le patch modification par type,famille test si 1.0f
+				//me->SetSpeedRate(MOVE_RUN, 1.01f);										// Vitesse par defaut definit a 1.01f puisque le patch modification par type,famille test si 1.0f
 			}
 			void UpdateAI(uint32 diff) override
 			{
@@ -349,12 +349,12 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 
 
 					// ############################################################################################################################################
-					// Combat suivant la Spécialisation
+					// Combat suivant la Specialisation
 
 
 					switch (BrancheSpe)
 					{
-					case 1: // Spécialisation Maitre-Brasseur  ####################################################################################################
+					case 1: // Specialisation Maitre-Brasseur  ####################################################################################################
 							// Regen en combat --------------------------------------------------------------------------------------------------------------------
 						Mana = me->GetPower(POWER_ENERGY);
 						if (Cooldown_RegenMana <= diff)
@@ -371,10 +371,10 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 						// Spell1 sur la cible
 						if (Cooldown_Spell1 <= diff)
 						{
-							//Bonus_Degat_Arme_Done(-40);											// Reduction des degats infligés
+							//Bonus_Degat_Arme_Done(-40);											// Reduction des degats infliges
 							me->CastSpell(victim, Spell_branche1_1, true);
 							//Bonus_Degat_Arme_Done(40);
-							DoMeleeAttackIfReady();													// Combat en mélée
+							DoMeleeAttackIfReady();													// Combat en melee
 							Cooldown_Spell1 = 3500;
 						}
 						else Cooldown_Spell1 -= diff;
@@ -406,7 +406,7 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 						Heal_En_Combat_Melee(diff);
 						break;
 
-					case 2: // Spécialisation Tisse-Brume #########################################################################################################
+					case 2: // Specialisation Tisse-Brume #########################################################################################################
 							// Regen en combat --------------------------------------------------------------------------------------------------------------------
 						Mana = me->GetPower(POWER_DEMONIC_FURY);
 						if (Cooldown_RegenMana <= diff)
@@ -423,10 +423,10 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 						// Spell1 sur la cible
 						if (Cooldown_Spell1 <= diff)
 						{
-							//Bonus_Degat_Arme_Done(-35);												// Reduction des degats infligés
+							//Bonus_Degat_Arme_Done(-35);												// Reduction des degats infliges
 							me->CastSpell(victim, Spell_branche2_1, true);
 							//Bonus_Degat_Arme_Done(35);	
-							DoMeleeAttackIfReady();													// Combat en mélée
+							DoMeleeAttackIfReady();													// Combat en melee
 							Cooldown_Spell1 = 3500;
 						}
 						else Cooldown_Spell1 -= diff;
@@ -434,7 +434,7 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 						// Spell2 sur la cible
 						if (Cooldown_Spell2 <= diff)
 						{
-							//Bonus_Degat_Arme_Done(-35);												// Reduction des degats infligés
+							//Bonus_Degat_Arme_Done(-35);												// Reduction des degats infliges
 							me->CastSpell(victim, Spell_branche2_2, true);
 							//Bonus_Degat_Arme_Done(35);
 							Cooldown_Spell2 = 4500;
@@ -444,7 +444,7 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 						// Spell3 sur la cible
 						if (Cooldown_Spell3 <= diff)
 						{
-							//Bonus_Degat_Arme_Done(-15);												// Reduction des degats infligés
+							//Bonus_Degat_Arme_Done(-15);												// Reduction des degats infliges
 							me->CastSpell(victim, Spell_branche2_3, true);
 							//Bonus_Degat_Arme_Done(15);
 							Cooldown_Spell3 = urand(6000,8000);
@@ -461,7 +461,7 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 
 						Heal_En_Combat_Melee(diff);
 						break;
-					case 3: // Spécialisation Marche-vent #########################################################################################################
+					case 3: // Specialisation Marche-vent #########################################################################################################
 							// Regen en combat --------------------------------------------------------------------------------------------------------------------
 						Mana = me->GetPower(POWER_ENERGY);
 						if (Cooldown_RegenMana <= diff)
@@ -478,10 +478,10 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 						// Spell1 sur la cible
 						if (Cooldown_Spell1 <= diff)
 						{
-							//Bonus_Degat_Arme_Done(-40);											// Reduction des degats infligés
+							//Bonus_Degat_Arme_Done(-40);											// Reduction des degats infliges
 							me->CastSpell(victim, Spell_branche3_1, true);
 							//Bonus_Degat_Arme_Done(40);
-							DoMeleeAttackIfReady();													// Combat en mélée
+							DoMeleeAttackIfReady();													// Combat en melee
 							Cooldown_Spell1 = 2500;
 						}
 						else Cooldown_Spell1 -= diff;
@@ -569,7 +569,7 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 				{
 					RetireBugDeCombat();
 					me->AddUnitState(UNIT_STATE_EVADE);
-					EnterEvadeMode(EVADE_REASON_SEQUENCE_BREAK);						// Quite le combat si la cible > 30m (Caster & Mélée) ou > 40m de home
+					EnterEvadeMode(EVADE_REASON_SEQUENCE_BREAK);						// Quite le combat si la cible > 30m (Caster & Melee) ou > 40m de home
 				}
 			}
 			void Mouvement_Contact(uint32 diff)
@@ -587,7 +587,7 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 				Unit* victim = me->GetVictim();
 				Dist = me->GetDistance(victim);
 
-				//DoMeleeAttackIfReady();													// Combat en mélée
+				//DoMeleeAttackIfReady();													// Combat en melee
 
 				// ------ ALLER A LA CIBLE -------------------------------------------------------------------------------------------------------------------------
 				if (Cooldown_Anti_Bug_Figer <= diff)
@@ -724,7 +724,7 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 					else Cooldown_Spell_Heal -= diff;
 					
 					// heal sur Friend
-					if (target = DoSelectLowestHpFriendly(DistanceDeCast))							// Distance de l'allié = 30m
+					if (target = DoSelectLowestHpFriendly(DistanceDeCast))							// Distance de l'allie = 30m
 					{
 						if (me->IsFriendlyTo(target) && (me != target))
 						{
@@ -753,7 +753,7 @@ public: Stitch_npc_ai_moine() : CreatureScript("Stitch_npc_ai_moine") { }
 			}
 			void Bonus_Degat_Arme_Done(int val) // 
 			{
-				// +- Bonus en % de degat des armes infligées a victim
+				// +- Bonus en % de degat des armes infligees a victim
 				me->HandleStatModifier(UNIT_MOD_ATTACK_POWER, TOTAL_PCT, val, true);
 				me->HandleStatModifier(UNIT_MOD_DAMAGE_OFFHAND, TOTAL_PCT, val, true);
 				me->HandleStatModifier(UNIT_MOD_DAMAGE_RANGED, TOTAL_PCT, val, true);

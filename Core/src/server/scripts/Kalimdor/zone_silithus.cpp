@@ -44,13 +44,13 @@ EndContentData */
 #define GOSSIP_ITEM2 "Cela semble dangereux!"
 #define GOSSIP_ITEM3 "Qu'as-tu fait?"
 #define GOSSIP_ITEM4 "Qui?"
-#define GOSSIP_ITEM5 "Les femmes font cela. Qu'est-ce qu'elle a demandé?"
+#define GOSSIP_ITEM5 "Les femmes font cela. Qu'est-ce qu'elle a demande?"
 #define GOSSIP_ITEM6 "Qu'est-ce que vous voulez dire?"
-#define GOSSIP_ITEM7 "Qu'est-ce qui s'est passé ensuite?"
+#define GOSSIP_ITEM7 "Qu'est-ce qui s'est passe ensuite?"
 
 #define GOSSIP_ITEM11 "Oui, continuez"
 #define GOSSIP_ITEM12 "Quelle langue?"
-#define GOSSIP_ITEM13 "La prêtresse vous a attaqué?"
+#define GOSSIP_ITEM13 "La prêtresse vous a attaque?"
 #define GOSSIP_ITEM14 "e devrais demander au singe à propos de ceci"
 #define GOSSIP_ITEM15 "Ensuite, quoi ..."
 

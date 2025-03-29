@@ -33,7 +33,7 @@
 template<>
 void RandomMovementGenerator<Creature>::_setRandomLocation(Creature* creature)
 {
-	if (creature->IsInCombat())			//Stitch mouvement aléatoire uniquement hors combat
+	if (creature->IsInCombat())			//Stitch mouvement aleatoire uniquement hors combat
 		return;
 
     float respX, respY, respZ, respO, destX, destY, destZ, travelDistZ;

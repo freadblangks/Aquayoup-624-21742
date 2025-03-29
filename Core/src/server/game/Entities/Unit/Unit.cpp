@@ -6174,7 +6174,7 @@ bool Unit::HandleAuraProc(Unit* /*victim*/, uint32 /*damage*/, Aura* triggeredBy
                 // Bone Shield cooldown
                 case 49222:
                 {
-//Stitch DK-bouclier d os : retiré pour cause de crash
+//Stitch DK-bouclier d os : retire pour cause de crash
  /*          
 
 					*handled = true;
@@ -14793,7 +14793,7 @@ uint32 Unit::GetModelForTotem(PlayerTotemType totemType)
 					return 30760;
 				default:
 					//	break;
-					return 30760;				// Pour le bug de modelid parfois renvoyé a 0
+					return 30760;				// Pour le bug de modelid parfois renvoye a 0
 			}
 			break;
 		}
@@ -14811,7 +14811,7 @@ uint32 Unit::GetModelForTotem(PlayerTotemType totemType)
 					return 30760;
 				default:
 					//	break;
-					return 30760;				// Pour le bug de modelid parfois renvoyé a 0
+					return 30760;				// Pour le bug de modelid parfois renvoye a 0
 			}
 			break;
 		}
@@ -14829,7 +14829,7 @@ uint32 Unit::GetModelForTotem(PlayerTotemType totemType)
 					return 30760;
 				default:
 					//	break;
-					return 30760;				// Pour le bug de modelid parfois renvoyé a 0
+					return 30760;				// Pour le bug de modelid parfois renvoye a 0
 			}
 			break;
 		}
@@ -14847,7 +14847,7 @@ uint32 Unit::GetModelForTotem(PlayerTotemType totemType)
 					return 30760;
 				default:
 					//	break;
-					return 30760;				// Pour le bug de modelid parfois renvoyé a 0
+					return 30760;				// Pour le bug de modelid parfois renvoye a 0
 			}
 			break;
 		}
@@ -14865,7 +14865,7 @@ uint32 Unit::GetModelForTotem(PlayerTotemType totemType)
 				return 19071;
 			default:
 				//	break;
-				return 19074;				// Pour le bug de modelid parfois renvoyé a 0
+				return 19074;				// Pour le bug de modelid parfois renvoye a 0
 			}
 			break;
 		}
@@ -14883,7 +14883,7 @@ uint32 Unit::GetModelForTotem(PlayerTotemType totemType)
 					return 19071;
 				default:
 					//	break;
-					return 19074;				// Pour le bug de modelid parfois renvoyé a 0
+					return 19074;				// Pour le bug de modelid parfois renvoye a 0
 			}
 			break;
 		}
@@ -14901,7 +14901,7 @@ uint32 Unit::GetModelForTotem(PlayerTotemType totemType)
 					return 19071;
 				default:
 					//	break;
-					return 19074;				// Pour le bug de modelid parfois renvoyé a 0
+					return 19074;				// Pour le bug de modelid parfois renvoye a 0
 			}
 			break;
 		}
@@ -14919,7 +14919,7 @@ uint32 Unit::GetModelForTotem(PlayerTotemType totemType)
 					return 19071;
 				default:
 					//	break;
-					return 19074;				// Pour le bug de modelid parfois renvoyé a 0
+					return 19074;				// Pour le bug de modelid parfois renvoye a 0
 			}
 			break;
 		}
@@ -14937,7 +14937,7 @@ uint32 Unit::GetModelForTotem(PlayerTotemType totemType)
 					return 19071;
 				default:
 					//	break;
-					return 19074;				// Pour le bug de modelid parfois renvoyé a 0
+					return 19074;				// Pour le bug de modelid parfois renvoye a 0
 			}
 			break;
 		}
@@ -14955,7 +14955,7 @@ uint32 Unit::GetModelForTotem(PlayerTotemType totemType)
 					return 19071;
 				default:
 					//	break;
-					return 19074;				// Pour le bug de modelid parfois renvoyé a 0
+					return 19074;				// Pour le bug de modelid parfois renvoye a 0
 			}
 			break;
 		}
@@ -14973,7 +14973,7 @@ uint32 Unit::GetModelForTotem(PlayerTotemType totemType)
 					return 30760;
 				default:
 					//	break;
-					return 30760;				// Pour le bug de modelid parfois renvoyé a 0
+					return 30760;				// Pour le bug de modelid parfois renvoye a 0
 			}
 			break;
 		}
@@ -14992,7 +14992,7 @@ uint32 Unit::GetModelForTotem(PlayerTotemType totemType)
                     return 30756;
 				default:
 					//	break;
-					return 30760;				// Pour le bug de modelid parfois renvoyé a 0
+					return 30760;				// Pour le bug de modelid parfois renvoye a 0
 			}
             break;
         }
@@ -15010,7 +15010,7 @@ uint32 Unit::GetModelForTotem(PlayerTotemType totemType)
                     return 30736;
 				default:
 					//	break;
-					return 19074;				// Pour le bug de modelid parfois renvoyé a 0
+					return 19074;				// Pour le bug de modelid parfois renvoye a 0
 			}
             break;
         }
@@ -15028,7 +15028,7 @@ uint32 Unit::GetModelForTotem(PlayerTotemType totemType)
                     return 30760;
 				default:
 					//	break;
-					return 30760;				// Pour le bug de modelid parfois renvoyé a 0
+					return 30760;				// Pour le bug de modelid parfois renvoye a 0
 			}
             break;
         }
@@ -15046,7 +15046,7 @@ uint32 Unit::GetModelForTotem(PlayerTotemType totemType)
                     return 4590;
 				default:
 					//	break;
-					return 30760;				// Pour le bug de modelid parfois renvoyé a 0
+					return 30760;				// Pour le bug de modelid parfois renvoye a 0
 			}
             break;
         }
@@ -15064,7 +15064,7 @@ uint32 Unit::GetModelForTotem(PlayerTotemType totemType)
                     return 19071;
 				default:
 					//	break;
-					return 19074;				// Pour le bug de modelid parfois renvoyé a 0
+					return 19074;				// Pour le bug de modelid parfois renvoye a 0
 			}
             break;
         }
@@ -15082,7 +15082,7 @@ uint32 Unit::GetModelForTotem(PlayerTotemType totemType)
                     return 30781;
 				default:
 					//	break;
-					return 30760;				// Pour le bug de modelid parfois renvoyé a 0
+					return 30760;				// Pour le bug de modelid parfois renvoye a 0
 			}
             break;
         }

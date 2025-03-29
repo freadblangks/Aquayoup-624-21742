@@ -19,7 +19,7 @@ Aquayoup.Solocraft = 1
 # FunDamageDefaut 	- Defaut/Arcade : 1	- Coefficient de degat des armes fait par un joueur (1=normal | 2=150% | 3=200% etc)
 # FunDamageSpell		- Defaut/Arcade : 2	- Coefficient de degat des sorts fait par un joueur (1=50% | 2=normal | 3=150% | 4=200% etc)
 # FunHealSpell			- Defaut/Arcade : 2	- Coefficient de heal & Leech des sorts  fait par un joueur (1=50% | 2=normal | 3=150% | 4=200% etc)
-# FunSpeedCast			- Defaut/Arcade : 1	- Coefficient de temps pour lancer un sort (affichage non modifié) (1=Normal | 2=200% | 3=300% : tres lent)
+# FunSpeedCast			- Defaut/Arcade : 1	- Coefficient de temps pour lancer un sort (affichage non modifie) (1=Normal | 2=200% | 3=300% : tres lent)
 # FunArmor					- Defaut/Arcade : 1	- Coefficient d'armure (1=normal | 2=200% | 3=300% etc)
 
 FunAllStat = 2
@@ -37,10 +37,10 @@ FunArmor	= 1
 # - 1 : Officiers
 # - 2 : Veterants
 # - 3 : Membres
-# - 4 : Initiés
+# - 4 : Inities
 #
-# 8 onglets activés 
-# Le nom des rangs sont d'origine soit : Chef de guilde, Officier, Veterant, Membre, Initié
+# 8 onglets actives 
+# Le nom des rangs sont d'origine soit : Chef de guilde, Officier, Veterant, Membre, Initie
 #
 # Stitch.Guild.Nom : Nom de la guilde par defaut (Tout nouveau perso en fait partie)
 Stitch.Guild.Nom = "AquaYoup"

@@ -834,14 +834,14 @@ void Player::HandleDrowning(uint32 time_diff)
     if (!m_MirrorTimerFlags)
         return;
 
-//Stitch fatigue annulé en Vashj'ir
+//Stitch fatigue annule en Vashj'ir
 	if (GetZoneId() == 4815) { StopMirrorTimer(BREATH_TIMER); StopMirrorTimer(FATIGUE_TIMER); return; }	// Foret de Varech'tar
 	if (GetZoneId() == 5144) { StopMirrorTimer(BREATH_TIMER); StopMirrorTimer(FATIGUE_TIMER); return; }	// Etendues Chatoyantes
 	if (GetZoneId() == 5146) { StopMirrorTimer(BREATH_TIMER); StopMirrorTimer(FATIGUE_TIMER); return; }	// Etendues Chatoyantes
 
 	if (GetZoneId() == 357) { StopMirrorTimer(BREATH_TIMER); StopMirrorTimer(FATIGUE_TIMER); return; }	// 1121 Ile de l'effroi
 
-	if (GetMapId() == 646) { StopMirrorTimer(BREATH_TIMER); StopMirrorTimer(FATIGUE_TIMER); return; } // fatigue annulé en Trefonds
+	if (GetMapId() == 646) { StopMirrorTimer(BREATH_TIMER); StopMirrorTimer(FATIGUE_TIMER); return; } // fatigue annule en Trefonds
 
 	
 	// In water
@@ -1016,7 +1016,7 @@ void Player::Update(uint32 p_time)
     if (!IsInWorld())
         return;
 
-//Stitch Vampire : Verrouillage a 0 de l'energie en mode vampire avant une déconnexion
+//Stitch Vampire : Verrouillage a 0 de l'energie en mode vampire avant une deconnexion
 	if (HasAura(300124) || HasAura(300125))
 	{
 		setPowerType(POWER_DEMONIC_FURY);
@@ -1406,7 +1406,7 @@ void Player::Update(uint32 p_time)
 
 
 
-//Stitch fatigue forcé pour interdire une zone - Vashj'ir
+//Stitch fatigue force pour interdire une zone - Vashj'ir
 	//Pour le visuel utilisez :
 	//DELETE FROM `spell_area` WHERE  `spell_area`.`area` = 214  AND `spell_area`.`spell` = 50224;
 	//INSERT INTO `spell_area` (`spell`, `area`, `quest_start`, `quest_end`, `aura_spell`, `racemask`, `gender`, `autocast`, `quest_start_status`, `quest_end_status`) VALUES (50224, 214, 0, 0, 0, 0, 2, 1, 18, 1);	# WARNING FATIGUE
@@ -1952,7 +1952,7 @@ void Player::RegenerateAll()
 
 	if (getClass() == CLASS_PALADIN)
 		//m_holyPowerRegenTimerCount += m_regenTimer;
-		m_holyPowerRegenTimerCount += m_regenTimer / 2;	//Stitch regen Puissance sacré Paladin
+		m_holyPowerRegenTimerCount += m_regenTimer / 2;	//Stitch regen Puissance sacre Paladin
 
 	if (getClass() == CLASS_HUNTER)
 		m_focusRegenTimerCount += m_regenTimer;
@@ -2069,7 +2069,7 @@ void Player::Regenerate(Powers power)
 	case POWER_FOCUS:
 		addvalue += (6.0f + CalculatePct(6.0f, rangedHaste)) * sWorld->getRate(RATE_POWER_FOCUS);
 		break;
-	case POWER_DEMONIC_FURY:              // Fureur démoniaque (Vampire) 
+	case POWER_DEMONIC_FURY:              // Fureur demoniaque (Vampire) 
 	case POWER_ENERGY:                                              // Regenerate energy (rogue)
 		addvalue += ((0.01f * m_regenTimer) + CalculatePct(0.01f, meleeHaste)) * sWorld->getRate(RATE_POWER_ENERGY);
 		break;
@@ -2078,7 +2078,7 @@ void Player::Regenerate(Powers power)
 		if (!IsInCombat())
 		{
 			addvalue += -1.0f;      // remove 1 every 10 sec, first one removed 20s after leaving combat
-			UpdateAllStats();		//Stitch : pour le bug de rafraichissement de la puissance sacrée
+			UpdateAllStats();		//Stitch : pour le bug de rafraichissement de la puissance sacree
 		}
 	}
 	break;
@@ -2792,7 +2792,7 @@ void Player::InitStatsForLevel(bool reapplyMods)
     SetObjectScale(1.0f);
 
 
-//Stitch INFO: Stats a neutralisé pour classe Custom
+//Stitch INFO: Stats a neutralise pour classe Custom
     // save base values (bonuses already included in stored stats  -  
     for (uint8 i = STAT_STRENGTH; i < MAX_STATS; ++i)
         SetCreateStat(Stats(i), info.stats[i]);
@@ -2803,11 +2803,11 @@ void Player::InitStatsForLevel(bool reapplyMods)
 
 
 
-/*	//Stitch INFO Stats neutralisé pour classe Custom  -  voir aussi void Player::Regenerate(Powers power)
+/*	//Stitch INFO Stats neutralise pour classe Custom  -  voir aussi void Player::Regenerate(Powers power)
 	if (HasAura(123456789))
 	{
 	SetCreateStat(Stats(0), 5);		// Force
-	SetCreateStat(Stats(1), 1);		// Agilité
+	SetCreateStat(Stats(1), 1);		// Agilite
 	SetCreateStat(Stats(2), 2);		// Endurance
 	SetCreateStat(Stats(3), 3);		// Intelligence
 	SetCreateStat(Stats(4), 4);		// Esprit
