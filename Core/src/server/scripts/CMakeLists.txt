@@ -205,6 +205,8 @@ add_library(scripts STATIC
   ${PRIVATE_SOURCES})
 
 target_link_libraries(scripts
+PRIVATE
+    trinity-core-interface
   PUBLIC
     game-interface)
 

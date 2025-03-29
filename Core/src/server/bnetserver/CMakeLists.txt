@@ -42,6 +42,8 @@ if (NOT WIN32)
 endif()
 
 target_link_libraries(bnetserver
+  PRIVATE
+    trinity-core-interface
   PUBLIC
     shared)
 
