@@ -33,6 +33,15 @@ namespace
         return Trinity::make_unique_ptr_with_deleter<&::UI_destroy_method>(UI_UTIL_wrap_read_pem_callback(callback, 0));
     }
 
+    boost::system::error_code GetLastOpenSSLError()
+    {
+        auto ossl_error = ::ERR_get_error();
+        if (ERR_SYSTEM_ERROR(ossl_error))
+            return boost::system::error_code(static_cast<int>(::ERR_GET_REASON(ossl_error)), boost::asio::error::get_system_category());
+
+        return boost::system::error_code(static_cast<int>(ossl_error), boost::asio::error::get_ssl_category());
+    }
+
     auto OpenOpenSSLStore(boost::filesystem::path const& storePath, UI_METHOD const* passwordCallback, void* passwordCallbackData)
     {
         std::string uri;
@@ -55,15 +64,6 @@ namespace
         }
 
         return store;
-    }
-
-    boost::system::error_code GetLastOpenSSLError()
-    {
-        auto ossl_error = ::ERR_get_error();
-        if (ERR_SYSTEM_ERROR(ossl_error))
-            return boost::system::error_code(static_cast<int>(::ERR_GET_REASON(ossl_error)), boost::asio::error::get_system_category());
-
-        return boost::system::error_code(static_cast<int>(ossl_error), boost::asio::error::get_ssl_category());
     }
 }
 
