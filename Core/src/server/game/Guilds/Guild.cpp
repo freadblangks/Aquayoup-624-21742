@@ -3460,7 +3460,7 @@ bool Guild::CreationDeLaStitchGuild(Player* _player, std::string const& _nomGuil
 			std::string ConfDroit = "";
 			std::string Idx = "";
 			// Nom de base des rangs de la guilde
-			std::string guildeNomRang[maxGuilde_Right] = { "Maitre de guilde", "Officier", "Vétérant", "Membre", "Initié" };
+			std::string guildeNomRang[maxGuilde_Right] = { "Maitre de guilde", "Officier", "Veterant", "Membre", "Initie" };
 
 			// droits des rangs
 			uint32 guildedRights[maxGuilde_Right] = {14548927, 14548927, 4980763, 4980755, 786435 };

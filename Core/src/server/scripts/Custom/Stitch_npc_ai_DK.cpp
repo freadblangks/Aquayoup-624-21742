@@ -5,7 +5,7 @@
 // Necessite dans Creature_Template :
 // Minimun  : UPDATE `creature_template` SET `ScriptName` = 'Stitch_npc_ai_dk',`AIName` = '' WHERE (entry = 15100009);
 // Optionel : UPDATE `creature_template` SET `HealthModifier` = 2, `ManaModifier` = 3, `ArmorModifier` = 1, `DamageModifier` = 2,`BaseAttackTime` = 2000, `RangeAttackTime` = 2000 WHERE(entry = 15100009);
-// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 forcé), pickpocketloot = 2 (branche2 forcé), etc
+// Optionel : Utilisez pickpocketloot de creature_template pour passer certains parametres (Solution choisit afin de rester compatible avec tout les cores). Si pickpocketloot = 1 (branche1 force), pickpocketloot = 2 (branche2 force), etc
 //###########################################################################################################################################################################################################################################
 // # npc de Test Stitch_npc_ai_dk  .npc 15100009
 //REPLACE INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entry_2`, `difficulty_entry_3`, `KillCredit1`, `KillCredit2`, `modelid1`, `modelid2`, `modelid3`, `modelid4`, `name`, `femaleName`, `subname`, `IconName`, `gossip_menu_id`, `minlevel`, `maxlevel`, `exp`, `exp_unk`, `faction`, `npcflag`, `speed_walk`, `speed_run`, `scale`, `rank`, `dmgschool`, `BaseAttackTime`, `RangeAttackTime`, `BaseVariance`, `RangeVariance`, `unit_class`, `unit_flags`, `unit_flags2`, `dynamicflags`, `family`, `trainer_type`, `trainer_class`, `trainer_race`, `type`, `type_flags`, `type_flags2`, `lootid`, `pickpocketloot`, `skinloot`, `resistance1`, `resistance2`, `resistance3`, `resistance4`, `resistance5`, `resistance6`, `spell1`, `spell2`, `spell3`, `spell4`, `spell5`, `spell6`, `spell7`, `spell8`, `VehicleId`, `mingold`, `maxgold`, `AIName`, `MovementType`, `InhabitType`, `HoverHeight`, `HealthModifier`, `HealthModifierExtra`, `ManaModifier`, `ManaModifierExtra`, `ArmorModifier`, `DamageModifier`, `ExperienceModifier`, `RacialLeader`, `movementId`, `RegenHealth`, `mechanic_immune_mask`, `flags_extra`, `ScriptName`, `VerifiedBuild`) VALUES
@@ -31,8 +31,8 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 		{
 			Stitch_npc_ai_dkAI(Creature* creature) : ScriptedAI(creature) { }
 
-			uint32 BrancheSpe = 1;													// Choix de la Spécialisation : Sang=1, Givre=2, Impie=3, Chaos=4
-			uint32 NbrDeSpe = 4;													// Nombre de Spécialisations
+			uint32 BrancheSpe = 1;													// Choix de la Specialisation : Sang=1, Givre=2, Impie=3, Chaos=4
+			uint32 NbrDeSpe = 4;													// Nombre de Specialisations
 			uint32 ForceBranche;
 			uint32 Random;
 			uint32 DistanceDeCast = 40;												// Distance max a laquelle un npc attaquera , au dela il quite le combat
@@ -63,13 +63,13 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 			uint32 Cooldown_Spell_ContreAttaque_defaut = 8000;
 
 			// Spells Divers    
-			uint32 Buf_branche1 = 50689;											// Présence de sang 48263/50689
-			uint32 Buf_branche1a = 57330;											// Vétéran de la Troisième guerre 50029 (endu+10%), Cor de l’hiver 57330
-			uint32 Buf_branche2 = 48266;											// Présence de givre 48266
-			uint32 Buf_branche2a = 31821;											// Puissance des terres gelées 81333 (mélée+35%), Pilier de givre 51271 (force+15% insensible mouvement), 
-			uint32 Buf_branche3 = 48265;											// Présence impie 48265
-			uint32 Buf_branche3a = 49222;											// Carapace anti-magie 48707, Bouclier d’os 49222, Invocation d'une gargouille 49206, Réanimation morbide 46584
-			uint32 Buf_branche4 = 300049;											// Présence du Chaos 300049
+			uint32 Buf_branche1 = 50689;											// Presence de sang 48263/50689
+			uint32 Buf_branche1a = 57330;											// Veteran de la Troisième guerre 50029 (endu+10%), Cor de l’hiver 57330
+			uint32 Buf_branche2 = 48266;											// Presence de givre 48266
+			uint32 Buf_branche2a = 31821;											// Puissance des terres gelees 81333 (melee+35%), Pilier de givre 51271 (force+15% insensible mouvement), 
+			uint32 Buf_branche3 = 48265;											// Presence impie 48265
+			uint32 Buf_branche3a = 49222;											// Carapace anti-magie 48707, Bouclier d’os 49222, Invocation d'une gargouille 49206, Reanimation morbide 46584
+			uint32 Buf_branche4 = 300049;											// Presence du Chaos 300049
 			uint32 Buf_branche4a = 300248;											// Chancre impie 300248
 			uint32 Spell_Heal_1 = 48982;  											// Connexion runique 48982
 			uint32 Spell_Heal_2 = 46283;  											// Voile mortel 46283
@@ -81,7 +81,7 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 			uint32 Robustesse_glaciale = 48792;
 			uint32 Strangulation = 47476;
 			uint32 Pet_Dk;
-			uint32 Liste_Pet_Dk[5] = { 46584, 46584, 46584, 49206 ,49206 };			// Réanimation morbide 46584, Armée des morts 42650, Invocation d'une gargouille 49206 
+			uint32 Liste_Pet_Dk[5] = { 46584, 46584, 46584, 49206 ,49206 };			// Reanimation morbide 46584, Armee des morts 42650, Invocation d'une gargouille 49206 
 
 			// Spells Sang
 			uint32 Spell_branche1_agro = 0;
@@ -89,11 +89,11 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 			uint32 Spell_branche1_2 = 0;
 			uint32 Spell_branche1_3 = 0;
 			uint32 Spell_branche1_4 = 0;
-			uint32 branche1_agro[3] = { 49576, 300233, 130736 };					// Poigne de la mort 49576, Poussée de fièvre 300233, Faucheur d’âme 130736
+			uint32 branche1_agro[3] = { 49576, 300233, 130736 };					// Poigne de la mort 49576, Poussee de fièvre 300233, Faucheur d’âme 130736
 			uint32 branche1_1[2] = { 300198, 300198 };								// Frappe de sang 300198   
 			uint32 branche1_2[2] = { 45470, 45470 };								// Frappe de mort 45470
 			uint32 branche1_3[2] = { 165760, 165760 };								// Frappe au cœur 165760
-			uint32 branche1_4[2] = { 43265, 92025 };								// Mort et décomposition 43265, Furoncle sanglant 92025
+			uint32 branche1_4[2] = { 43265, 92025 };								// Mort et decomposition 43265, Furoncle sanglant 92025
 
 			// Spells Givre
 			uint32 Spell_branche2_agro = 0;
@@ -104,7 +104,7 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 			uint32 branche2_agro[4] = { 45524, 45524, 47528, 47528 };				// Chaînes de glace 45524, Gel de l'esprit 47528 
 			uint32 branche2_1[2] = { 300197, 300197 };								// Toucher de glace 300197
 			uint32 branche2_2[2] = { 49143, 49143 };								// Frappe de givre 49143, 
-			uint32 branche2_3[2] = { 300234, 300234 };								// Anéantissement 300234
+			uint32 branche2_3[2] = { 300234, 300234 };								// Aneantissement 300234
 			uint32 branche2_4[2] = { 49184, 49184 };								// Rafale hurlante 49184
 			
 			// Spells Impie
@@ -113,9 +113,9 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 			uint32 Spell_branche3_2 = 0;
 			uint32 Spell_branche3_3 = 0;
 			uint32 Spell_branche3_4 = 0;
-			uint32 branche3_agro[3] = { 300233, 130736, 130736 };					// Poussée de fièvre 300233, Faucheur d’âme 130736
+			uint32 branche3_agro[3] = { 300233, 130736, 130736 };					// Poussee de fièvre 300233, Faucheur d’âme 130736
 			uint32 branche3_1[2] = { 300199, 300199 };								// Frappe de peste 300199
-			uint32 branche3_2[2] = { 172680, 172680 };								// Frappe du Fléau 172680 
+			uint32 branche3_2[2] = { 172680, 172680 };								// Frappe du Fleau 172680 
 			uint32 branche3_3[2] = { 300235, 300235 };								// Frappe purulente 300235
 			uint32 branche3_4[2] = { 92025, 92025 };								// Furoncle sanglant 92025 
 
@@ -144,23 +144,23 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 				{
 					me->CastSpell(me, Tmp, true);
 				}
-				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangée
+				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangee
 			}
 
 			void Init_AI()
 			{
 				// ################################################################################################################################################
-				// Forcer le choix de la Spécialisation par creature_template->pickpocketloot
+				// Forcer le choix de la Specialisation par creature_template->pickpocketloot
 				// ################################################################################################################################################
-				// Forcer le choix de la Spécialisation par creature_template->pickpocketloot
+				// Forcer le choix de la Specialisation par creature_template->pickpocketloot
 				ForceBranche = me->GetCreatureTemplate()->pickpocketLootId;							// creature_template->pickpocketloot
-				if (ForceBranche == 1) { BrancheSpe = 1; }											// branche1 forcé
-				else if (ForceBranche == 2) { BrancheSpe = 2; }										// branche2 forcé 
-				else if (ForceBranche == 3) { BrancheSpe = 3; }										// branche3 forcé
-				else if (ForceBranche == 4) { BrancheSpe = 4; }										// branche4 forcé
+				if (ForceBranche == 1) { BrancheSpe = 1; }											// branche1 force
+				else if (ForceBranche == 2) { BrancheSpe = 2; }										// branche2 force 
+				else if (ForceBranche == 3) { BrancheSpe = 3; }										// branche3 force
+				else if (ForceBranche == 4) { BrancheSpe = 4; }										// branche4 force
 				else
 				{
-					// Sinon Choix de la Spécialisation Aléatoire
+					// Sinon Choix de la Specialisation Aleatoire
 					BrancheSpe = urand(1, NbrDeSpe);
 				}
 
@@ -168,11 +168,11 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 
 
 				// ################################################################################################################################################
-				// Tirages aléatoires des spells
+				// Tirages aleatoires des spells
 				// ################################################################################################################################################
 				// Spell a lancer a l'agro ------------------------------------------------------------------------------------------------------------------------
 
-				// Message a l'agro forcé par spell(8)
+				// Message a l'agro force par spell(8)
 				if (me->m_spells[7] == 1) { MessageAlagro = 1; }
 
 				// Spell contre attaque si PV bas
@@ -246,7 +246,7 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 
 					Bonus_Armure(150);															// Bonus d'armure +50%
 
-					// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+					// Reste a distance variable suivant ci le mob est a l'exterieur ou a l'Interieur
 					if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 					{
 						ResteADistance = urand(14, 16);
@@ -276,7 +276,7 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 
 				VisuelPowerRunic();
 				Init_AI();
-				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangée
+				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangee
 			}
 
 			void EnterCombat(Unit* /*who*/) override
@@ -295,14 +295,14 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 																					//Retire certaines Aura, emotes & Bytes a l'agro
 				me->RemoveAura(80264);	// Retire Marche a pas de loup
 				me->RemoveAura(152891);	// Retire Avance a pas de loup invisible
-				me->RemoveAura(104015);	// Retire afaissé / Stun
-				me->RemoveAura(153964);	// Retire agenouillé, avec evade
-				me->RemoveAura(42648);	// Retire Dort allongé + zzz
-				me->RemoveAura(18795);	// Retire Dort allongé + zzz 
+				me->RemoveAura(104015);	// Retire afaisse / Stun
+				me->RemoveAura(153964);	// Retire agenouille, avec evade
+				me->RemoveAura(42648);	// Retire Dort allonge + zzz
+				me->RemoveAura(18795);	// Retire Dort allonge + zzz 
 				me->RemoveAura(43905);	// Retire Ivre
 				me->RemoveAura(101090);	// Retire Danse
 				me->HandleEmoteCommand(0);
-				me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // Autre façon de retirer des émotes pour les cas particuliers
+				me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // Autre façon de retirer des emotes pour les cas particuliers
 				me->SetByteValue(UNIT_FIELD_BYTES_1, 0, 0);
 				me->SetByteValue(UNIT_FIELD_BYTES_2, 0, 0);
 
@@ -312,7 +312,7 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 				Start_Agro = 0;
 				RetireBugDeCombat();
 				me->AddUnitState(UNIT_STATE_EVADE);
-				//me->SetSpeedRate(MOVE_RUN, 1.5f);										// Vitesse de déplacement
+				//me->SetSpeedRate(MOVE_RUN, 1.5f);										// Vitesse de deplacement
 				me->GetMotionMaster()->MoveTargetedHome();								// Retour home
 				me->RemoveAllControlled();												// renvois pet
 
@@ -341,7 +341,7 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 
 				Bonus_Armure(100);														// Retire bonus d'armure
 
-				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangée
+				me->SetSheath(SHEATH_STATE_UNARMED);								//Arme rangee
 				me->SetReactState(REACT_AGGRESSIVE);
 				VisuelPowerRunic();
 			}
@@ -435,7 +435,7 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 					}
 
 					// ############################################################################################################################################
-					// Combat suivant la Spécialisation
+					// Combat suivant la Specialisation
 					// ############################################################################################################################################
 
 					// Visuel Power en combat ---------------------------------------------------------------------------------------------------------------------
@@ -448,9 +448,9 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 
 						switch (BrancheSpe)
 						{
-						case 1: // Spécialisation Sang ############################################################################################################
+						case 1: // Specialisation Sang ############################################################################################################
 							// Combat -----------------------------------------------------------------------------------------------------------------------------
-							Bonus_Degat_Arme_Done(-10);													// Reduction des degats infligés
+							Bonus_Degat_Arme_Done(-10);													// Reduction des degats infliges
 							if (Dist < 6)
 							{
 
@@ -504,15 +504,15 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 								}
 								else Cooldown_Spell4 -= diff;
 							}
-							Bonus_Degat_Arme_Done(10);													// Degats infligés d'origines
+							Bonus_Degat_Arme_Done(10);													// Degats infliges d'origines
 							Heal_En_Combat_Melee(diff);
 							Mouvement_Contact(diff);
 							break;
 
-						case 2: // Spécialisation Givre ###########################################################################################################
+						case 2: // Specialisation Givre ###########################################################################################################
 
 							// Combat -----------------------------------------------------------------------------------------------------------------------------
-							Bonus_Degat_Arme_Done(-25);													// Reduction des degats infligés
+							Bonus_Degat_Arme_Done(-25);													// Reduction des degats infliges
 							if (Dist < 6)
 							{
 								// Applique Peste_de_sang, fievre_de_givre ou Peste_necrotique sur la cible
@@ -565,15 +565,15 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 								}
 								else Cooldown_Spell4 -= diff;
 							}
-							Bonus_Degat_Arme_Done(25);													// Degats infligés d'origines
+							Bonus_Degat_Arme_Done(25);													// Degats infliges d'origines
 							Heal_En_Combat_Melee(diff);
 							Mouvement_Contact(diff);
 							break;
 
-						case 3: // Spécialisation Impie ###########################################################################################################
+						case 3: // Specialisation Impie ###########################################################################################################
 
 							// Combat -----------------------------------------------------------------------------------------------------------------------------
-							Bonus_Degat_Arme_Done(-50);													// Reduction des degats infligés
+							Bonus_Degat_Arme_Done(-50);													// Reduction des degats infliges
 							if (Dist < 6)
 							{
 								// Applique Peste_de_sang, fievre_de_givre ou Peste_necrotique sur la cible
@@ -594,12 +594,12 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 
 								// ------------------------------------------------------------------------------------------------------------------------------------
 
-								// Spell1 sur la cible chaque (Sort Régulié)
+								// Spell1 sur la cible chaque (Sort Regulie)
 								if (Cooldown_Spell1 <= diff)
 								{
 									me->CastSpell(victim, Spell_branche3_1, true);
 									Cooldown_Spell1 = 6000;
-									DoMeleeAttackIfReady();						// Combat en mélée
+									DoMeleeAttackIfReady();						// Combat en melee
 								}
 								else Cooldown_Spell1 -= diff;
 
@@ -611,7 +611,7 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 								}
 								else Cooldown_Spell2 -= diff;
 
-								// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilisé comme Dot)
+								// Spell3 sur la cible  (Sort secondaire tres lent , generalement utilise comme Dot)
 								if (Cooldown_Spell3 <= diff)
 								{
 									me->CastSpell(victim, Spell_branche3_3, true);
@@ -627,15 +627,15 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 								}
 								else Cooldown_Spell4 -= diff;
 							}
-							Bonus_Degat_Arme_Done(50);													// Degats infligés d'origines
+							Bonus_Degat_Arme_Done(50);													// Degats infliges d'origines
 							Heal_En_Combat_Melee(diff);
 							Mouvement_Contact(diff);
 							break;
 
-						case 4: // Spécialisation Chaos ###########################################################################################################
+						case 4: // Specialisation Chaos ###########################################################################################################
 
 							// Combat -----------------------------------------------------------------------------------------------------------------------------
-							Bonus_Degat_Arme_Done(-25);													// Reduction des degats infligés
+							Bonus_Degat_Arme_Done(-25);													// Reduction des degats infliges
 
 							// Applique Peste_de_sang, fievre_de_givre ou Peste_necrotique sur la cible
 							if (Cooldown_Peste_et_Fievre <= diff)
@@ -655,7 +655,7 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 
 							// ------------------------------------------------------------------------------------------------------------------------------------
 
-							// Spell1 sur la cible chaque (Sort Régulié)
+							// Spell1 sur la cible chaque (Sort Regulie)
 							if (Cooldown_Spell1 <= diff)
 							{
 								if (!me->HasUnitState(UNIT_STATE_MOVE))
@@ -664,7 +664,7 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 									me->StopMoving();
 									DoCastVictim(Spell_branche4_1);
 									Cooldown_Spell1 = 7500;
-									DoMeleeAttackIfReady();						// Combat en mélée
+									DoMeleeAttackIfReady();						// Combat en melee
 								}
 							}
 							else Cooldown_Spell1 -= diff;
@@ -677,7 +677,7 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 							}
 							else Cooldown_Spell2 -= diff;
 
-							// Spell3 sur la cible  (Sort secondaire tres lent , généralement utilisé comme Dot)
+							// Spell3 sur la cible  (Sort secondaire tres lent , generalement utilise comme Dot)
 							if (Cooldown_Spell3 <= diff)
 							{
 								DoCast(victim, Spell_branche4_3);
@@ -693,7 +693,7 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 							}
 							else Cooldown_Spell4 -= diff;
 
-							Bonus_Degat_Arme_Done(25);													// Degats infligés d'origines
+							Bonus_Degat_Arme_Done(25);													// Degats infliges d'origines
 							Heal_En_Combat_Melee(diff);
 							Mouvement_Caster(diff);
 							break;
@@ -755,12 +755,12 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 				{
 					RetireBugDeCombat();
 					me->AddUnitState(UNIT_STATE_EVADE);
-					EnterEvadeMode(EVADE_REASON_SEQUENCE_BREAK);						// Quite le combat si la cible > 30m (Caster & Mélée) ou > 40m de home
+					EnterEvadeMode(EVADE_REASON_SEQUENCE_BREAK);						// Quite le combat si la cible > 30m (Caster & Melee) ou > 40m de home
 				}
 			}
 			void Mouvement_Contact(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé())
+				if (!UpdateVictim() || AuraFige())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -826,7 +826,7 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 			}
 			void Mouvement_Caster(uint32 diff)
 			{
-				if (!UpdateVictim() || me->HasUnitState(UNIT_STATE_CASTING) || AuraFigé())
+				if (!UpdateVictim() || me->HasUnitState(UNIT_STATE_CASTING) || AuraFige())
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -834,7 +834,7 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 
 				if (Cooldown_ResteADistance <= diff)
 				{
-					// Mouvement aléatoire si cible < 6m ----------------------------------------------------------------------------------------------------------
+					// Mouvement aleatoire si cible < 6m ----------------------------------------------------------------------------------------------------------
 
 					if (Dist <6)
 					{
@@ -959,7 +959,7 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 					Unit* victim = me->GetVictim();
 					if (me->GetHealth() < (me->GetMaxHealth()*0.50))								// Si PV < 50%
 					{
-						//me->CastSpell(victim, Spell_Heal_2, true);								// Désactivé parce que fear penible
+						//me->CastSpell(victim, Spell_Heal_2, true);								// Desactive parce que fear penible
 						Cooldown_Spell_Heal_2 = 30000;
 					}
 				}else Cooldown_Spell_Heal_2 -= diff;
@@ -969,7 +969,7 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 
 			void Bonus_Degat_Arme_Done(int val) // 
 			{
-				// +- Bonus en % de degat des armes infligées a victim
+				// +- Bonus en % de degat des armes infligees a victim
 				me->HandleStatModifier(UNIT_MOD_ATTACK_POWER, TOTAL_PCT, val, true);
 				me->HandleStatModifier(UNIT_MOD_DAMAGE_OFFHAND, TOTAL_PCT, val, true);
 				me->HandleStatModifier(UNIT_MOD_DAMAGE_RANGED, TOTAL_PCT, val, true);
@@ -1036,7 +1036,7 @@ public: Stitch_npc_ai_dk() : CreatureScript("Stitch_npc_ai_dk") { }
 					) return true;
 				else return false;
 			}
-			bool AuraFigé()
+			bool AuraFige()
 			{
 				if (me->HasAura(122)		// Nova de givre
 					|| me->HasAura(3600)	// Totem de lien terrestre

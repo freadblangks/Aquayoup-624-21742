@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2016 TrinityCore <http://www.trinitycore.org/>
+ * Copyright (C) 2008-2012 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -21,24 +21,56 @@
 #include "Util.h"
 #include <cstring>
 #include <stdarg.h>
+#include <openssl/evp.h>
 
-SHA1Hash::SHA1Hash()
+SHA1Hash::SHA1Hash() noexcept
 {
-    SHA1_Init(&mC);
-    memset(mDigest, 0, SHA_DIGEST_LENGTH * sizeof(uint8));
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+    m_ctx = EVP_MD_CTX_create();
+#else
+    m_ctx = EVP_MD_CTX_new();
+#endif
+    EVP_DigestInit_ex(m_ctx, EVP_sha1(), nullptr);
+}
+
+SHA1Hash::SHA1Hash(const SHA1Hash& other) : SHA1Hash() // copy
+{
+    EVP_MD_CTX_copy_ex(m_ctx, other.m_ctx);
+    std::memcpy(m_digest, other.m_digest, SHA_DIGEST_LENGTH);
+}
+
+SHA1Hash::SHA1Hash(SHA1Hash&& other) noexcept : SHA1Hash() // move
+{
+    Swap(other);
+}
+
+SHA1Hash& SHA1Hash::operator=(SHA1Hash other) // assign
+{
+    Swap(other);
+    return *this;
 }
 
 SHA1Hash::~SHA1Hash()
 {
-    SHA1_Init(&mC);
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+    EVP_MD_CTX_destroy(m_ctx);
+#else
+    EVP_MD_CTX_free(m_ctx);
+#endif
 }
 
-void SHA1Hash::UpdateData(const uint8 *dta, int len)
+void SHA1Hash::Swap(SHA1Hash& other) throw()
 {
-    SHA1_Update(&mC, dta, len);
+    std::swap(m_ctx, other.m_ctx);
+    std::swap(m_digest, other.m_digest);
 }
 
-void SHA1Hash::UpdateData(const std::string &str)
+void SHA1Hash::UpdateData(const uint8* dta, int len)
+{
+    EVP_DigestUpdate(m_ctx, dta, len);
+}
+
+void SHA1Hash::UpdateData(const std::string& str)
 {
     UpdateData((uint8 const*)str.c_str(), str.length());
 }
@@ -46,10 +78,9 @@ void SHA1Hash::UpdateData(const std::string &str)
 void SHA1Hash::UpdateBigNumbers(BigNumber* bn0, ...)
 {
     va_list v;
-    BigNumber* bn;
 
     va_start(v, bn0);
-    bn = bn0;
+    auto bn = bn0;
     while (bn)
     {
         UpdateData(bn->AsByteArray().get(), bn->GetNumBytes());
@@ -60,18 +91,33 @@ void SHA1Hash::UpdateBigNumbers(BigNumber* bn0, ...)
 
 void SHA1Hash::Initialize()
 {
-    SHA1_Init(&mC);
+    EVP_DigestInit(m_ctx, EVP_sha1());
 }
 
 void SHA1Hash::Finalize(void)
 {
-    SHA1_Final(mDigest, &mC);
+    uint32 length = SHA_DIGEST_LENGTH;
+    EVP_DigestFinal_ex(m_ctx, m_digest, &length);
 }
 
 std::string CalculateSHA1Hash(std::string const& content)
 {
-    unsigned char digest[SHA_DIGEST_LENGTH];
-    SHA1((unsigned char*)content.c_str(), content.length(), (unsigned char*)&digest);
+    EVP_MD_CTX* mdctx;
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+    mdctx = EVP_MD_CTX_create();
+#else
+    mdctx = EVP_MD_CTX_new();
+#endif
+    EVP_DigestInit_ex(mdctx, EVP_sha1(), nullptr);
+    EVP_DigestUpdate(mdctx, content.c_str(), content.size());
+    uint8 digest[SHA_DIGEST_LENGTH];
+    uint32 shaDigestLength = SHA_DIGEST_LENGTH;
+    EVP_DigestFinal_ex(mdctx, digest, &shaDigestLength);
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+    EVP_MD_CTX_destroy(mdctx);
+#else
+    EVP_MD_CTX_free(mdctx);
+#endif
 
     return ByteArrayToHexStr(digest, SHA_DIGEST_LENGTH);
 }

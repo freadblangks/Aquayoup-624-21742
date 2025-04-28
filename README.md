@@ -1,20 +1,29 @@
-Developpement Custom World of Draenor 6.2.4-21742 .
+# World of Warcraft Private Server Source
+## Warlords of Draenor 6.2.4.21742 
 
-Ce projet a pour but le debug de World of Warcraft et l'amelioration de celui ci aussi bien sur l'aspect cosmétique que le gameplay orienté solo. 
+This project is based on Aquayoup by Stitch which is based on TrinityCore.
 
-Ce projet ne cherche pas a rendre le jeu blizz ou fun mais plutot different de ce qui peut ce faire habituellement, c'est a dire plus proche d'un Diablo avec une jouabilite solo et différente et ainsi raviver le regard des plus blasés .
+(https://github.com/stitch11) 
 
+(https://discord.gg/Y3qfmUy) 
 
+(https://aquayoup.123.fr/) 
 
-Dépendances nécéssaires a la compilation:
+### Updated depencies in 2025 March.
 
-Boost 1_63_0
+Built successfully on Windows with:
 
-Mysql5.7.22
+- Boost 1.80.0
+- MySQL 8.0.41
+- OpenSSL 3.4.1
+- CMake 3.31.5
+- Microsoft Visual Studio 2022 (Version 17.13.4)
 
-OpenSSL 1.0.2p
+Built successfully on Linux (Debian 12) with:
 
-Cmake 3.19.1
-
-Visual studio 2015 update 3
-
+- Boost 1.74.0.3
+- MariaDB 10.11.11
+- OpenSSL 3.0.15
+- CMake 3.25.1
+- GCC 12.2.0-14
+- Clang 14.0.6

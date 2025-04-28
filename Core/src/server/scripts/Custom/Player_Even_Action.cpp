@@ -1,6 +1,6 @@
 //###################################################################################################################################################################
 //Stitch Avril 2021 - Player_Even_Action_handler - version 1.0 , Wod 6.2.4-21742 
-// Action (Apprentissage, ajout d'item,etc) suite a un événement Joueur (connexion,levelup,zone, création) suivant la classe ou la race
+// Action (Apprentissage, ajout d'item,etc) suite a un evenement Joueur (connexion,levelup,zone, creation) suivant la classe ou la race
 //###################################################################################################################################################################
 
 //#include "Config.h"
@@ -29,7 +29,7 @@
 #include "SpellScript.h"
 
 uint32 SPELL_POUR_VISUEL = 14867;
-uint32 PERTE_DE_DURABILITE = 45317;         //  Perte de 10 % de la durabilité
+uint32 PERTE_DE_DURABILITE = 45317;         //  Perte de 10 % de la durabilite
 uint32 DISPARITIONS = 35205;
 
 
@@ -70,7 +70,7 @@ public:
 			}
 			if (player->HasAura(71))
 			{
-				player->RemoveAurasDueToSpell(71);		// Posture défensive  
+				player->RemoveAurasDueToSpell(71);		// Posture defensive  
 				player->AddAura(71, player);
 			}
 
@@ -93,7 +93,7 @@ public:
 			// Rafraichissement posture a la connexion 
 			if (player->HasAura(103985))
 			{
-				player->RemoveAurasDueToSpell(103985);	// Posture du tigre féroce		
+				player->RemoveAurasDueToSpell(103985);	// Posture du tigre feroce		
 				player->AddAura(103985, player);
 			}
 			if (player->HasAura(115069))
@@ -114,7 +114,7 @@ public:
 		}
 
 
-		player->LearnSpell(300048, true);      // Reparation de 10% de la durabilité
+		player->LearnSpell(300048, true);      // Reparation de 10% de la durabilite
 
 		player->UpdateAllStats();
 
@@ -133,7 +133,7 @@ public:
     // Sans action pour le moment
     void OnPlayerEnterZone(Player* player, uint32 newZone, uint32 newArea)
     {
-		//VOIR Stitch fatigue forcé pour interdire une zone - Vashj'ir
+		//VOIR Stitch fatigue force pour interdire une zone - Vashj'ir
     }
     void OnPlayerUpdate(Player* player, uint32 p_time)
     {
@@ -149,7 +149,7 @@ public:
 
 	//player->CastSpell(player, 14867, true);		// Pour visuel
 
-    ////// TMP a voir/vérifier : public: /* CreatureScript */
+    ////// TMP a voir/verifier : public: /* CreatureScript */
     // void OnPlayerTalentsReset(Player* player, bool noCost)
     // void OnPlayerEnter(map, player) {}
 	// void ScriptMgr::OnPlayerEnterMap(Map* map, Player* player)
@@ -172,7 +172,7 @@ public:
 
 
 	// ################################################################################################################################################
-    // Routines d'actions secondaires suite a un évènement 
+    // Routines d'actions secondaires suite a un evènement 
 	// ################################################################################################################################################
 
 	void Apprentissage_Ou_Additem_Suivant_classes_races(Player* player)
@@ -200,8 +200,8 @@ case CLASS_HUNTER:
         player->LearnSpell(2641, true);     // Renvoyer le familier
         player->LearnSpell(9321, true);     // Contrôle du familier
         player->LearnSpell(6991, true);     // Nourrir le familier
-        player->LearnSpell(136, true);      // Guérison du familier - ne s'apprend pas ?!
-        player->LearnSpell(33976, true);    // Guérison du familier : temporaire : parce que 136 ne veux pas s'apprendre seul
+        player->LearnSpell(136, true);      // Guerison du familier - ne s'apprend pas ?!
+        player->LearnSpell(33976, true);    // Guerison du familier : temporaire : parce que 136 ne veux pas s'apprendre seul
         player->LearnSpell(982, true);      // Ressusciter le familier
         player->LearnSpell(1515, true);     // Apprivoiser une bête
         player->LearnSpell(1462, true);     // Connaissance des bêtes
@@ -326,7 +326,7 @@ case RACE_DRAENEI:
     break;
 case RACE_WORGEN:
     player->LearnSpell(68978, true); // Ecorcheur
-    player->LearnSpell(69270, true); // Langue (gilnéen)
+    player->LearnSpell(69270, true); // Langue (gilneen)
     player->LearnSpell(68976, true); // Aberration
     player->LearnSpell(68975, true); // Acharnement
 	if (_level >= 5)	
@@ -336,7 +336,7 @@ case RACE_WORGEN:
 	if (_level >= 10)	
 	{		
 		player->LearnSpell(68996, true); // Deux formes
-		player->LearnSpell(94293, true); // Forme modifiée
+		player->LearnSpell(94293, true); // Forme modifiee
 	}
 	if (_level >= 20)
 	{
@@ -359,7 +359,7 @@ case RACE_PANDAREN_HORDE:
         uint8 rez = sConfigMgr->GetIntDefault("Rez_sur_son_corp", 1);
         if (rez == 1)
         {
-            player->LearnSpell(SPELL_POUR_REZ, true);      // Résurrection de Pierre d'âme
+            player->LearnSpell(SPELL_POUR_REZ, true);      // Resurrection de Pierre d'âme
         }
     }
     */

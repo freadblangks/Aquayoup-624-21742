@@ -424,7 +424,7 @@ void Spell::EffectSchoolDMG(SpellEffIndex effIndex)
 		switch (m_spellInfo->Id)                     // better way to check unknown
 		{
 		
-		case 22568:		// ------ Druide Morsure féroce 
+		case 22568:		// ------ Druide Morsure feroce 
 		{
 			uint32 Combo_Points = GetCaster()->ToPlayer()->GetComboPoints();
 			if (Combo_Points > 0)
@@ -1275,7 +1275,7 @@ void Spell::EffectHeal(SpellEffIndex /*effIndex*/)
 
 
 		//--- Stitch effect (10) Heal ----------------------------------------------------------------
-		// Régénération frénétique
+		// Regeneration frenetique
 		if (m_spellInfo->Id == 22842)
 		{
 			uint8 Combo_Points = GetCaster()->ToPlayer()->GetComboPoints();

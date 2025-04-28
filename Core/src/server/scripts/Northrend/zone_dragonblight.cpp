@@ -526,7 +526,7 @@ class npc_wyrmrest_defender : public CreatureScript
             {
                 Initialize();
 
-//Stitch : Défenseur du Repos du ver vole
+//Stitch : Defenseur du Repos du ver vole
 				me->SetCanFly(true); 
 				me->SetDisableGravity(true);
 

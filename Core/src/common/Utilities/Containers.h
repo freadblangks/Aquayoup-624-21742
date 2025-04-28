@@ -21,10 +21,14 @@
 #include "Define.h"
 #include "Random.h"
 #include "Util.h"
+#include <type_traits>
+#include <iterator>
 #include <algorithm>
 #include <functional>
 #include <list>
 #include <vector>
+#include <random>
+#include <ranges>
 
 namespace Trinity
 {
@@ -169,6 +173,35 @@ namespace Trinity
                 else
                     ++itr;
             }
+        }
+
+        /**
+        * @fn void Trinity::Containers::RandomShuffle(Iterator begin, Iterator end)
+        *
+        * @brief Reorder the elements of the iterator range randomly.
+        *
+        * @param begin Beginning of the range to reorder
+        * @param end End of the range to reorder
+        */
+        template <typename Iterator>
+        inline void RandomShuffle(Iterator begin, Iterator end)
+        {
+            static_assert(std::is_base_of<std::random_access_iterator_tag, typename std::iterator_traits<Iterator>::iterator_category>::value,
+                "Iterator must be a random access iterator");
+            std::shuffle(begin, end, SFMTEngine::Instance());
+        }
+
+        /**
+         * @fn void Trinity::Containers::RandomShuffle(C& container)
+         *
+         * @brief Reorder the elements of the container randomly.
+         *
+         * @param container Container to reorder
+         */
+        template <std::ranges::random_access_range C>
+        inline void RandomShuffle(C& container)
+        {
+            RandomShuffle(std::ranges::begin(container), std::ranges::end(container));
         }
     }
     //! namespace Containers

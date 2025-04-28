@@ -336,7 +336,8 @@ class CreatureGameObjectScriptRegistrySwapHooks
     public:
         template<typename T>
         AIFunctionMapWorker(T&& worker)
-            : _worker(std::forward<T>(worker)) { }
+            : _worker(std::forward<T>(worker)) {
+        }
 
         void Visit(std::unordered_map<ObjectGuid, ObjectType*>& objects)
         {
@@ -344,7 +345,7 @@ class CreatureGameObjectScriptRegistrySwapHooks
         }
 
         template<typename O>
-        void Visit(std::unordered_map<ObjectGuid, O*>&) { }
+        void Visit(std::unordered_map<ObjectGuid, O*>&) {}
 
     private:
         W _worker;
@@ -452,19 +453,19 @@ class CreatureGameObjectScriptRegistrySwapHooks
     void RunOverAllEntities(T fn)
     {
         auto evaluator = [&](std::unordered_map<ObjectGuid, ObjectType*>& objects)
-        {
-            for (auto object : objects)
-                fn(object.second);
-        };
+            {
+                for (auto& object : objects)
+                    fn(object.second);
+            };
 
-        AIFunctionMapWorker<typename std::decay<decltype(evaluator)>::type> worker(std::move(evaluator));
+        AIFunctionMapWorker<decltype(evaluator)> worker(std::move(evaluator));
         TypeContainerVisitor<decltype(worker), MapStoredObjectTypesContainer> visitor(worker);
 
         sMapMgr->DoForAllMaps([&](Map* map)
-        {
-            // Run the worker over all maps
-            visitor.Visit(map->GetObjectsStore());
-        });
+            {
+                // Run the worker over all maps
+                visitor.Visit(map->GetObjectsStore());
+            });
     }
 
 public:

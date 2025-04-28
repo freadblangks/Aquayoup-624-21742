@@ -223,7 +223,7 @@ bool Pet::LoadPetFromDB(Player* owner, uint32 petEntry, uint32 petnumber, bool c
             petlevel = owner->getLevel();
 
 			
-//Stitch : pet , Type de power utilisé par les pet . tous les pets utilisent l'energie plutot que le mana apres 335
+//Stitch : pet , Type de power utilise par les pet . tous les pets utilisent l'energie plutot que le mana apres 335
             SetByteValue(UNIT_FIELD_BYTES_0, UNIT_BYTES_0_OFFSET_CLASS, CLASS_ROGUE);
             SetUInt32Value(UNIT_FIELD_FLAGS, UNIT_FLAG_PVP_ATTACKABLE); // this enables popup window (pet dismiss, cancel)
 			setPowerType(POWER_ENERGY);
@@ -1097,7 +1097,7 @@ bool Guardian::InitStatsForLevel(uint8 petlevel)
 					SetMaxPower(POWER_FOCUS, 100);
 					break;
 				}
-				case 510: // mage Elémentaire d'eau
+				case 510: // mage Elementaire d'eau
 				{
 					setPowerType(POWER_MANA);
 					SetMaxPower(POWER_MANA, GetMaxPower(POWER_MANA));
@@ -1292,14 +1292,14 @@ bool Guardian::InitStatsForLevel(uint8 petlevel)
 					SetBaseWeaponDamage(BASE_ATTACK, MAXDAMAGE, float(petlevel * 15));
 					break;
 				}
-				case 69680: // Esprit élémentaire (moine)
+				case 69680: // Esprit elementaire (moine)
 				{
 					SetBonusDamage(int32(GetOwner()->GetTotalAttackPowerValue(BASE_ATTACK)));
 					SetBaseWeaponDamage(BASE_ATTACK, MINDAMAGE, float(petlevel * 7));
 					SetBaseWeaponDamage(BASE_ATTACK, MAXDAMAGE, float(petlevel * 9));
 					break;
 				}
-				case 24207: // Armée des morts (DK)
+				case 24207: // Armee des morts (DK)
 				{
 					SetBonusDamage(int32(GetOwner()->GetTotalAttackPowerValue(BASE_ATTACK)));
 					SetBaseWeaponDamage(BASE_ATTACK, MINDAMAGE, float(petlevel * 5));
@@ -1381,7 +1381,7 @@ bool Guardian::InitStatsForLevel(uint8 petlevel)
 					m_charmInfo->InitPetActionBar();
 					break;
 				}
-				case 58959: // Diablotin gangrené
+				case 58959: // Diablotin gangrene
 				{
 					setPowerType(POWER_ENERGY);
 					SetMaxPower(POWER_ENERGY, GetMaxPower(POWER_ENERGY));

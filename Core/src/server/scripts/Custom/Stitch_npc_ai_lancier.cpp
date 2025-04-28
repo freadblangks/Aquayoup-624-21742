@@ -7,12 +7,12 @@
 // Si pickpocketloot = 0 : Lancier , si pickpocketloot = 1 : Archer , si pickpocketloot = 2 : Fusilier
 // spell1 : Attaque principale au corp a corp
 // spell2 : Attaque Dot au corp a corp
-// spell3 : spell lancé a l'agro
-// spell4 : spell lancé a l'évade ou respawn
+// spell3 : spell lance a l'agro
+// spell4 : spell lance a l'evade ou respawn
 // spell5 : Buf
 // spell6 : Heal(tir sur cible)
 //
-// Si spell1 = 0 : tirage aléatoire des spells
+// Si spell1 = 0 : tirage aleatoire des spells
 
 // Il est possible d'influencer le temp entre 2 cast avec `BaseAttackTime` & `RangeAttackTime` 
 // Necessite dans Creature_Template :
@@ -69,16 +69,16 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 
 			// Spells
 			uint32 Buf_1 = 0;
-			uint32 liste_Buf[4] = { 6673, 1160, 97462, 8599 };						// Cri de guerre 6673, Cri démoralisant 1160 (8s 10m Soi-même), Cri de ralliement 97462 (+10% pv), Enrager 8599
+			uint32 liste_Buf[4] = { 6673, 1160, 97462, 8599 };						// Cri de guerre 6673, Cri demoralisant 1160 (8s 10m Soi-même), Cri de ralliement 97462 (+10% pv), Enrager 8599
 
 			uint32 Spell_agro = 0;
 			uint32 liste_agro[2] = { 133308, 79444 };								// Lancer le filet 133308 (25m 5s), Empaler 79444 (Jette une lance 60m) 
 
 			uint32 Spell_1;
-			uint32 liste_spell_1[4] = { 29426, 126799, 118326, 172851 };			// Frappe héroïque 29426, Frappe tranchante 126799, Attaque vicieuse 118326, Enchaînement 172851
+			uint32 liste_spell_1[4] = { 29426, 126799, 118326, 172851 };			// Frappe heroïque 29426, Frappe tranchante 126799, Attaque vicieuse 118326, Enchaînement 172851
 
 			uint32 Spell_2 = 0;
-			uint32 liste_spell_2[4] = { 127171, 118532, 772, 62317 };				// Fendoir vicieux 15/lvl + 2/lvl/1s cumulable 5 fois 127171, Entaille infectée 118532, Pourfendre 772, Dévaster 62317	
+			uint32 liste_spell_2[4] = { 127171, 118532, 772, 62317 };				// Fendoir vicieux 15/lvl + 2/lvl/1s cumulable 5 fois 127171, Entaille infectee 118532, Pourfendre 772, Devaster 62317	
 
 			uint32 Lancer_une_Arme = 42332;											// 8-40m Empaler 79444, Lancer une arme 42332 
 			uint32 Tir_Arc = 95826;
@@ -100,7 +100,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 				else if (ForceBranche == 2 || ForceBranche == 5 || ForceBranche == 8) { Tir_1 = Tir_Fusil; }							// Tir au fusil
 				else if (ForceBranche == 0 || ForceBranche == 3 || ForceBranche == 6) { Tir_1 = Lancer_une_Arme; }						// Lance une arme		
 
-				if (Tir_1 != Lancer_une_Arme) { me->SetSheath(SHEATH_STATE_RANGED); }				// S'équipe d'arc ou fusil
+				if (Tir_1 != Lancer_une_Arme) { me->SetSheath(SHEATH_STATE_RANGED); }				// S'equipe d'arc ou fusil
 				else
 				{
 					me->SetSheath(SHEATH_STATE_MELEE);												// S'equipe de l'arme au contact
@@ -117,23 +117,23 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 			void Init_AI()
 			{
 
-				// Message a l'agro forcé par spell(8)
+				// Message a l'agro force par spell(8)
 				if (me->m_spells[7] == 1) { MessageAlagro = 1; }
 
 				// Spell contre attaque si PV bas
 				if (me->m_spells[6] != 0) { Spell_ContreAttaque = me->m_spells[6]; }
 
 				// ################################################################################################################################################
-				// Définition des spells
+				// Definition des spells
 				// ################################################################################################################################################
 				// spell1 : Attaque principale
 				// spell2 : Dot
-				// spell3 : spell lancé a l'agro
-				// spell4 : spell lancé a l'évade ou respawn
+				// spell3 : spell lance a l'agro
+				// spell4 : spell lance a l'evade ou respawn
 				// spell5 : Buf
 				// spell6 : Heal(tir sur cible)
 
-				// Si aucun spell défini dans creature_template->spell[1] : tirage aléatoire des sorts
+				// Si aucun spell defini dans creature_template->spell[1] : tirage aleatoire des sorts
 				if (me->m_spells[0] == 0) 
 				{ 
 						Buf_1 = liste_Buf[urand(0, 3)];
@@ -157,7 +157,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 
 				Random_AI = urand(0,1);		// Caster_Puis_Contact ou Caster
 
-				// Reste a distance variable suivant ci le mob est a l'extérieur ou a l'Intérieur
+				// Reste a distance variable suivant ci le mob est a l'exterieur ou a l'Interieur
 				if (me->GetMap()->IsOutdoors(me->GetPositionX(), me->GetPositionY(), me->GetPositionZ()))
 				{
 					ResteADistance = urand(14, 16);
@@ -170,7 +170,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 				// ################################################################################################################################################
 				// Divers
 				// ################################################################################################################################################
-				if (Tir_1 != Lancer_une_Arme) { me->SetSheath(SHEATH_STATE_RANGED); }				// S'équipe d'arc ou fusil
+				if (Tir_1 != Lancer_une_Arme) { me->SetSheath(SHEATH_STATE_RANGED); }				// S'equipe d'arc ou fusil
 				else
 				{
 					me->SetSheath(SHEATH_STATE_MELEE);												// S'equipe de l'arme au contact
@@ -205,14 +205,14 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 				//Retire certaines Aura, emotes & Bytes a l'agro
 				me->RemoveAura(80264);	// Retire Marche a pas de loup
 				me->RemoveAura(152891);	// Retire Avance a pas de loup invisible
-				me->RemoveAura(104015);	// Retire afaissé / Stun
-				me->RemoveAura(153964);	// Retire agenouillé, avec evade
-				me->RemoveAura(42648);	// Retire Dort allongé + zzz
-				me->RemoveAura(18795);	// Retire Dort allongé + zzz 
+				me->RemoveAura(104015);	// Retire afaisse / Stun
+				me->RemoveAura(153964);	// Retire agenouille, avec evade
+				me->RemoveAura(42648);	// Retire Dort allonge + zzz
+				me->RemoveAura(18795);	// Retire Dort allonge + zzz 
 				me->RemoveAura(43905);	// Retire Ivre
 				me->RemoveAura(101090);	// Retire Danse
 				me->HandleEmoteCommand(0);
-				me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // Autre façon de retirer des émotes pour les cas particuliers
+				me->SetUInt32Value(UNIT_NPC_EMOTESTATE, 0); // Autre façon de retirer des emotes pour les cas particuliers
 				me->SetByteValue(UNIT_FIELD_BYTES_1, 0, 0);
 				me->SetByteValue(UNIT_FIELD_BYTES_2, 0, 0);
 				
@@ -233,7 +233,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 			void JustReachedHome() override
 			{
 				me->SetReactState(REACT_AGGRESSIVE);
-				//me->SetSpeedRate(MOVE_RUN, 1.01f);										// Vitesse par defaut définit a 1.01f puisque le patch modification par type,famille test si 1.0f
+				//me->SetSpeedRate(MOVE_RUN, 1.01f);										// Vitesse par defaut definit a 1.01f puisque le patch modification par type,famille test si 1.0f
 			}
 			void UpdateAI(uint32 diff) override
 			{
@@ -251,7 +251,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 				else
 					Cooldown_Npc_Emotes -= diff;
 
-				if (Tir_1 != Lancer_une_Arme) { me->SetSheath(SHEATH_STATE_RANGED); }				// S'équipe d'arc ou fusil
+				if (Tir_1 != Lancer_une_Arme) { me->SetSheath(SHEATH_STATE_RANGED); }				// S'equipe d'arc ou fusil
 				else
 				{
 					me->SetSheath(SHEATH_STATE_MELEE);												// S'equipe de l'arme au contact
@@ -272,12 +272,12 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 
 					if (Dist < 6)
 					{
-						me->SetSheath(SHEATH_STATE_MELEE);												// S'équipe d'armes au contact
+						me->SetSheath(SHEATH_STATE_MELEE);												// S'equipe d'armes au contact
 					}
 					else
 					{
-						if (Tir_1 != Lancer_une_Arme) { me->SetSheath(SHEATH_STATE_RANGED); }			// S'équipe d'arc ou fusil
-						else { me->SetSheath(SHEATH_STATE_MELEE); }										// S'équipe d'armes au contact
+						if (Tir_1 != Lancer_une_Arme) { me->SetSheath(SHEATH_STATE_RANGED); }			// S'equipe d'arc ou fusil
+						else { me->SetSheath(SHEATH_STATE_MELEE); }										// S'equipe d'armes au contact
 					}
 
 
@@ -324,7 +324,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 							me->StopMoving();
 							//Bonus_Degat_Arme_Done(100);
 							DoCast(victim, Spell_1);
-							DoMeleeAttackIfReady();																// Combat en mélée
+							DoMeleeAttackIfReady();																// Combat en melee
 							//Bonus_Degat_Arme_Done(-100);
 							Cooldown_Spell1 = urand(3000,3500);
 						}
@@ -350,7 +350,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 						// Spell1 sur la cible  
 						if (Cooldown_Spell1 <= diff && Spell_2 == 0)	//Uniquement si Spell_2 non defini et avec la cadence de Spell_1
 						{
-							if (Tir_1 != Lancer_une_Arme) { me->SetSheath(SHEATH_STATE_RANGED); }				// S'équipe d'arc ou fusil
+							if (Tir_1 != Lancer_une_Arme) { me->SetSheath(SHEATH_STATE_RANGED); }				// S'equipe d'arc ou fusil
 							else
 							{
 								me->SetSheath(SHEATH_STATE_MELEE);												// S'equipe de l'arme au contact
@@ -426,14 +426,14 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 
 					RetireBugDeCombat();
 					me->AddUnitState(UNIT_STATE_EVADE);
-					EnterEvadeMode(EVADE_REASON_SEQUENCE_BREAK);						// Quite le combat si la cible > 30m (Caster & Mélée) ou > 40m de home
+					EnterEvadeMode(EVADE_REASON_SEQUENCE_BREAK);						// Quite le combat si la cible > 30m (Caster & Melee) ou > 40m de home
 				}
 			}
 
 			// ###### Reste a distance mais va au contact si la cible ce raproche ##################################################################################
 			void Mouvement_Caster_Puis_Contact(uint32 diff)
 			{
-				if (!UpdateVictim() || AuraFigé() /*|| me->HasUnitState(UNIT_STATE_CASTING)*/)
+				if (!UpdateVictim() || AuraFige() /*|| me->HasUnitState(UNIT_STATE_CASTING)*/)
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -448,7 +448,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 				{
 					me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISABLE_MOVE);							// UNROOT
 					AttackStartCaster(victim, 1);														// Distance de cast
-					DoMeleeAttackIfReady();																// Combat en mélée
+					DoMeleeAttackIfReady();																// Combat en melee
 				}
 
 				// Mouvement ON si distance > 20m -----------------------------------------------------------------------------------------------------------------
@@ -475,7 +475,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 			// ###### Caster , reste a distance ####################################################################################################################
 			void Mouvement_Caster(uint32 diff)
 			{
-				if (!UpdateVictim() /*|| me->HasUnitState(UNIT_STATE_CASTING)*/ || AuraFigé() )
+				if (!UpdateVictim() /*|| me->HasUnitState(UNIT_STATE_CASTING)*/ || AuraFige() )
 					return;
 
 				Unit* victim = me->GetVictim();
@@ -483,7 +483,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 
 				if (Cooldown_Principal_B <= diff)
 				{
-					// Mouvement aléatoire si cible <= 5m  ---------------------------------------------------------------------------------------------------------
+					// Mouvement aleatoire si cible <= 5m  ---------------------------------------------------------------------------------------------------------
 
 					if (Dist <= 5)
 					{
@@ -560,7 +560,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 			}
 			void Bonus_Degat_Arme_Done(int val) // 
 			{
-				// +- Bonus en % de degat des armes infligées a victim
+				// +- Bonus en % de degat des armes infligees a victim
 				me->HandleStatModifier(UNIT_MOD_ATTACK_POWER, TOTAL_PCT, val, true);
 				me->HandleStatModifier(UNIT_MOD_DAMAGE_OFFHAND, TOTAL_PCT, val, true);
 				me->HandleStatModifier(UNIT_MOD_DAMAGE_RANGED, TOTAL_PCT, val, true);
@@ -610,7 +610,7 @@ public: Stitch_npc_ai_lancier() : CreatureScript("Stitch_npc_ai_lancier") { }
 					) return true;
 				else return false;
 			}
-			bool AuraFigé()
+			bool AuraFige()
 			{
 				if (me->HasAura(122)		// Nova de givre
 					|| me->HasAura(3600)	// Totem de lien terrestre

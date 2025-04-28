@@ -1,5 +1,5 @@
 //##############################################################################################
-//Stitch npc_level - PNJ 15000386 : Level et Lieux de depart avec réputation & equipements
+//Stitch npc_level - PNJ 15000386 : Level et Lieux de depart avec reputation & equipements
 //##############################################################################################
 
 
@@ -101,7 +101,7 @@ public:
 			player->AddItem(1710, 1); // Potion de soin
 			player->SetSkill(906, 0, 300, 300); //
 			player->LearnSpell(33388, true); // Apprenti cavalier lvl 20
-			player->LearnSpell(49322, true); // Zhévra rapide
+			player->LearnSpell(49322, true); // Zhevra rapide
 
 			SetSkill_Worgen(player, _race);
 
@@ -145,7 +145,7 @@ public:
 			player->SetSkill(906, 0, 300, 300); //
 			player->LearnSpell(33388, true);	// Apprenti cavalier lvl 20
 			player->LearnSpell(33391, true);	// Compagnon cavalier lvl 40
-			player->LearnSpell(49322, true);	// Zhévra rapide
+			player->LearnSpell(49322, true);	// Zhevra rapide
 
 			SetSkill_Worgen(player, _race);
 
@@ -198,8 +198,8 @@ public:
 			player->LearnSpell(33391, true); // Compagnon cavalier lvl 40
 			player->LearnSpell(34090, true); // Expert cavalier 60
 			player->LearnSpell(54197, true); // Vol par temps froid lvl 68 
-			player->LearnSpell(90267, true); // Licence de maître de vol lvl 60 - Kalimdor et Tréfonds
-			player->LearnSpell(49322, true); // Zhévra rapide
+			player->LearnSpell(90267, true); // Licence de maître de vol lvl 60 - Kalimdor et Trefonds
+			player->LearnSpell(49322, true); // Zhevra rapide
 
 			SetSkill_Worgen(player, _race);
 
@@ -257,8 +257,8 @@ public:
 			player->LearnSpell(34091, true); // Artisan cavalier lvl 70 
 			player->LearnSpell(90265, true); // Maître cavalier lvl 80 
 			player->LearnSpell(54197, true); // Vol par temps froid lvl 68 
-			player->LearnSpell(90267, true); // Licence de maître de vol lvl 60 - Kalimdor et Tréfonds
-			player->LearnSpell(49322, true); // Zhévra rapide
+			player->LearnSpell(90267, true); // Licence de maître de vol lvl 60 - Kalimdor et Trefonds
+			player->LearnSpell(49322, true); // Zhevra rapide
 
 			SetSkill_Worgen(player, _race);
 
@@ -316,8 +316,8 @@ public:
 			player->LearnSpell(34091, true); // Artisan cavalier lvl 70 
 			player->LearnSpell(90265, true); // Maître cavalier lvl 80 
 			player->LearnSpell(54197, true); // Vol par temps froid lvl 68 
-			player->LearnSpell(90267, true); // Licence de maître de vol lvl 60 - Kalimdor et Tréfonds
-			player->LearnSpell(49322, true); // Zhévra rapide
+			player->LearnSpell(90267, true); // Licence de maître de vol lvl 60 - Kalimdor et Trefonds
+			player->LearnSpell(49322, true); // Zhevra rapide
 
 			SetSkill_Worgen(player, _race);
 
@@ -376,8 +376,8 @@ public:
 			player->LearnSpell(34091, true); // Artisan cavalier lvl 70 
 			player->LearnSpell(90265, true); // Maître cavalier lvl 80 
 			player->LearnSpell(54197, true); // Vol par temps froid lvl 68 
-			player->LearnSpell(90267, true); // Licence de maître de vol lvl 60 - Kalimdor et Tréfonds
-			player->LearnSpell(49322, true); // Zhévra rapide
+			player->LearnSpell(90267, true); // Licence de maître de vol lvl 60 - Kalimdor et Trefonds
+			player->LearnSpell(49322, true); // Zhevra rapide
 
 			SetSkill_Worgen(player, _race);
 
@@ -450,10 +450,10 @@ public:
 				if (_race == RACE_WORGEN)
 				{
 					player->LearnSpell(68996, true); // Deux formes
-					player->LearnSpell(94293, true); // Forme modifiée
+					player->LearnSpell(94293, true); // Forme modifiee
 					player->LearnSpell(68992, true); // Sombre course
 					player->LearnSpell(68978, true); // Ecorcheur
-					player->LearnSpell(69270, true); // Langue (gilnéen)
+					player->LearnSpell(69270, true); // Langue (gilneen)
 					player->LearnSpell(68976, true); // Aberration
 					player->LearnSpell(68975, true); // Acharnement
 				}
@@ -521,7 +521,7 @@ public:
 		case 13:
 			uint8 reputworgendesneiges = 0;
 
-			if (player->GetReputation(942) != reputworgendesneiges) { player->SetReputation(942, reputworgendesneiges); }	// Expédition cénarienne
+			if (player->GetReputation(942) != reputworgendesneiges) { player->SetReputation(942, reputworgendesneiges); }	// Expedition cenarienne
 			if (player->GetReputation(935) != reputworgendesneiges) { player->SetReputation(935, reputworgendesneiges); }	// Les Sha'tar
 			if (player->GetReputation(936) != reputworgendesneiges) { player->SetReputation(936, reputworgendesneiges); }	// Shattrath
 			if (player->GetReputation(1011) != reputworgendesneiges) { player->SetReputation(1011, reputworgendesneiges); } // Ville basse
@@ -531,7 +531,7 @@ public:
 			if (player->GetReputation(932) != reputworgendesneiges) { player->SetReputation(932, reputworgendesneiges); }	// L'Aldor
 			if (player->GetReputation(934) != reputworgendesneiges) { player->SetReputation(934, reputworgendesneiges); }	// Les Clairvoyants
 			if (player->GetReputation(1038) != reputworgendesneiges) { player->SetReputation(1038, reputworgendesneiges); } // Ogri'la
-			if (player->GetReputation(1077) != reputworgendesneiges) { player->SetReputation(1077, reputworgendesneiges); } // Opération Soleil brisé
+			if (player->GetReputation(1077) != reputworgendesneiges) { player->SetReputation(1077, reputworgendesneiges); } // Operation Soleil brise
 
 																															// ALLIANCE 
 			if (player->GetReputation(72) != reputworgendesneiges) { player->SetReputation(72, reputworgendesneiges); }		// Hurlevent
@@ -568,10 +568,10 @@ public:
 		if (_race == RACE_WORGEN)	// Worgen
 		{
 			player->LearnSpell(68996, true); // Deux formes
-			player->LearnSpell(94293, true); // Forme modifiée
+			player->LearnSpell(94293, true); // Forme modifiee
 			player->LearnSpell(68992, true); // Sombre course
 			player->LearnSpell(68978, true); // Ecorcheur
-			player->LearnSpell(69270, true); // Langue (gilnéen)
+			player->LearnSpell(69270, true); // Langue (gilneen)
 			player->LearnSpell(68976, true); // Aberration
 			player->LearnSpell(68975, true); // Acharnement
 		}
@@ -590,5 +590,5 @@ public:
 };
 void AddSC_npc_levels()
 {
-	new npc_level();						//Stitch Choix du level et lieu de départ 
+	new npc_level();						//Stitch Choix du level et lieu de depart 
 }

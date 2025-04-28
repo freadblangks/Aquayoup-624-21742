@@ -375,7 +375,7 @@ bool Creature::InitEntry(uint32 entry, CreatureData const* data /*= nullptr*/)
     SetNativeDisplayId(displayID);
     SetByteValue(UNIT_FIELD_BYTES_0, UNIT_BYTES_0_OFFSET_GENDER, minfo->gender);
 
-//Stitch mobs equipé au spawn
+//Stitch mobs equipe au spawn
     // Load creature equipment
 
 
@@ -473,7 +473,7 @@ bool Creature::InitEntry(uint32 entry, CreatureData const* data /*= nullptr*/)
 
 		case CREATURE_TYPE_HUMANOID:		// Humanoide
 		case CREATURE_TYPE_HUMANOID_AUTRE:
-		case CREATURE_TYPE_NOT_SPECIFIED:	// Non specifié
+		case CREATURE_TYPE_NOT_SPECIFIED:	// Non specifie
 			SetSpeedRate(MOVE_WALK, 0.6f);							// hors combat
 			SetSpeedRate(MOVE_RUN, 1.0f);							// en combat
 			SetSpeedRate(MOVE_SWIM, 0.6f);							// en nageant
@@ -865,7 +865,7 @@ void Creature::Update(uint32 diff)
 
 		case CREATURE_TYPE_HUMANOID:		// Humanoide
 		case CREATURE_TYPE_HUMANOID_AUTRE:
-		case CREATURE_TYPE_NOT_SPECIFIED:	// Non specifié
+		case CREATURE_TYPE_NOT_SPECIFIED:	// Non specifie
 			SetSpeedRate(MOVE_SWIM, 0.6f);							// en nageant
 			break;
 
@@ -1176,7 +1176,7 @@ void Creature::Update(uint32 diff)
 
 
 			//Stitch Rage des Mobs toujours a 100 plutot que 0 en combat (pour le visuel)
-				if (IsInCombat() && GetVictim() && getPowerType() == POWER_RAGE) // regeneration rage si hors combat & non métamorphosé 
+				if (IsInCombat() && GetVictim() && getPowerType() == POWER_RAGE) // regeneration rage si hors combat & non metamorphose 
 				{
 					SetMaxPower(POWER_RAGE, 1000);
 					SetPower(POWER_RAGE,1000);

@@ -951,7 +951,7 @@ bool SmartAIMgr::IsEventValid(SmartScriptHolder& e)
                 return false;
 
 //
-//Stitch SmartAI : message log parce que le core préfere invoquer des mobs par spell plutot que ACTION_SUMMON_CREATURE
+//Stitch SmartAI : message log parce que le core prefere invoquer des mobs par spell plutot que ACTION_SUMMON_CREATURE
 //            CacheSpellContainerBounds sBounds = GetSummonCreatureSpellContainerBounds(e.action.summonCreature.creature);
 //            for (CacheSpellContainer::const_iterator itr = sBounds.first; itr != sBounds.second; ++itr)
 //                TC_LOG_ERROR("sql.sql", "SmartAIMgr: Entry " SI64FMTD " SourceType %u Event %u Action %u creature summon: There is a summon spell for creature entry %u (SpellId: %u, effect: %u)",
@@ -1029,7 +1029,7 @@ bool SmartAIMgr::IsEventValid(SmartScriptHolder& e)
             if (!NotNULL(e, e.action.item.count))
                 return false;
 //
-//Stitch SmartAI : message log parce que le core préfere invoquer des items par spell plutot que ACTION_ADD_ITEM
+//Stitch SmartAI : message log parce que le core prefere invoquer des items par spell plutot que ACTION_ADD_ITEM
 //
 //			CacheSpellContainerBounds sBounds = GetCreateItemSpellContainerBounds(e.action.item.entry);
 //            for (CacheSpellContainer::const_iterator itr = sBounds.first; itr != sBounds.second; ++itr)

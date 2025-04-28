@@ -1,64 +1,86 @@
+/*
+ * This file is part of the TrinityCore Project. See AUTHORS file for Copyright information
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the
+ * Free Software Foundation; either version 2 of the License, or (at your
+ * option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "GitRevision.h"
 #include "revision_data.h"
 
 char const* GitRevision::GetHash()
 {
-    return _HASH;
+    return TRINITY_GIT_COMMIT_HASH;
 }
 
 char const* GitRevision::GetDate()
 {
-    return _DATE;
+    return TRINITY_GIT_COMMIT_DATE;
 }
 
 char const* GitRevision::GetBranch()
 {
-    return _BRANCH;
+    return TRINITY_GIT_COMMIT_BRANCH;
 }
 
 char const* GitRevision::GetCMakeCommand()
 {
-    return _CMAKE_COMMAND;
+    return TRINITY_BUILD_CMAKE_COMMAND;
+}
+
+char const* GitRevision::GetCMakeVersion()
+{
+    return TRINITY_BUILD_CMAKE_VERSION;
+}
+
+char const* GitRevision::GetHostOSVersion()
+{
+    return ""
+#ifdef TRINITY_BUILD_HOST_DISTRO_NAME
+        TRINITY_BUILD_HOST_DISTRO_NAME
+#ifdef TRINITY_BUILD_HOST_DISTRO_VERSION_ID
+        " " TRINITY_BUILD_HOST_DISTRO_VERSION_ID
+#endif
+        "; "
+#endif
+        TRINITY_BUILD_HOST_SYSTEM " " TRINITY_BUILD_HOST_SYSTEM_VERSION
+        ;
 }
 
 char const* GitRevision::GetBuildDirectory()
 {
-    return _BUILD_DIRECTORY;
+    return TRINITY_BUILD_CMAKE_BUILD_DIRECTORY;
 }
 
 char const* GitRevision::GetSourceDirectory()
 {
-    return _SOURCE_DIRECTORY;
+    return TRINITY_BUILD_CMAKE_SOURCE_DIRECTORY;
 }
 
 char const* GitRevision::GetMySQLExecutable()
 {
-    return _MYSQL_EXECUTABLE;
+    return DATABASE_MYSQL_EXECUTABLE;
 }
 
 char const* GitRevision::GetFullDatabase()
 {
-    return _FULL_DATABASE;
+    return DATABASE_FULL_DATABASE;
 }
 
 char const* GitRevision::GetHotfixesDatabase()
 {
-    return _HOTFIXES_DATABASE;
+    return DATABASE_HOTFIXES_DATABASE;
 }
-
-#if PLATFORM == PLATFORM_WINDOWS
-#  ifdef _WIN64
-#    define TRINITY_PLATFORM_STR "Win64"
-#  else
-#    define TRINITY_PLATFORM_STR "Win32"
-#  endif
-#elif PLATFORM == PLATFORM_APPLE
-#  define TRINITY_PLATFORM_STR "MacOSX"
-#elif PLATFORM == PLATFORM_INTEL
-#  define TRINITY_PLATFORM_STR "Intel"
-#else // PLATFORM_UNIX
-#  define TRINITY_PLATFORM_STR "Unix"
-#endif
 
 #ifndef TRINITY_API_USE_DYNAMIC_LINKING
 #  define TRINITY_LINKAGE_TYPE_STR "Static"
@@ -68,8 +90,8 @@ char const* GitRevision::GetHotfixesDatabase()
 
 char const* GitRevision::GetFullVersion()
 {
-  return "TrinityCore rev. " VER_PRODUCTVERSION_STR
-    " (" TRINITY_PLATFORM_STR ", " _BUILD_DIRECTIVE ", " TRINITY_LINKAGE_TYPE_STR ")";
+    return "AquayoupCore rev. " VER_PRODUCTVERSION_STR
+        " (" TRINITY_BUILD_HOST_SYSTEM ", " TRINITY_BUILD_PROCESSOR  ", " _BUILD_DIRECTIVE ", " TRINITY_LINKAGE_TYPE_STR ")";
 }
 
 char const* GitRevision::GetCompanyNameStr()

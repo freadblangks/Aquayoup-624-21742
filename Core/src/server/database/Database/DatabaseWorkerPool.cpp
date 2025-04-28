@@ -18,8 +18,15 @@
 #include "DatabaseWorkerPool.h"
 #include "DatabaseEnv.h"
 
-#define MIN_MYSQL_SERVER_VERSION 50100u
-#define MIN_MYSQL_CLIENT_VERSION 50100u
+#define MIN_MYSQL_SERVER_VERSION 50700u
+#define MIN_MYSQL_SERVER_VERSION_STRING "5.7"
+#define MIN_MYSQL_CLIENT_VERSION 50700u
+#define MIN_MYSQL_CLIENT_VERSION_STRING "5.7"
+
+#define MIN_MARIADB_SERVER_VERSION 100209u
+#define MIN_MARIADB_SERVER_VERSION_STRING "10.2.9"
+#define MIN_MARIADB_CLIENT_VERSION 30003u
+#define MIN_MARIADB_CLIENT_VERSION_STRING "3.0.3"
 
 template <class T>
 DatabaseWorkerPool<T>::DatabaseWorkerPool()
@@ -27,9 +34,16 @@ DatabaseWorkerPool<T>::DatabaseWorkerPool()
       _async_threads(0), _synch_threads(0)
 {
     WPFatal(mysql_thread_safe(), "Used MySQL library isn't thread-safe.");
-    WPFatal(mysql_get_client_version() >= MIN_MYSQL_CLIENT_VERSION, "TrinityCore does not support MySQL versions below 5.1");
+
+#if defined(LIBMARIADB)    
+    WPFatal(mysql_get_client_version() >= MIN_MARIADB_CLIENT_VERSION, "TrinityCore does not support MariaDB versions below 10.0.2.");
+    WPFatal(mysql_get_client_version() == MARIADB_PACKAGE_VERSION_ID, "Used MariaDB library version (%s) does not match the version used to compile TrinityCore (%s).",
+        mysql_get_client_info(), MARIADB_PACKAGE_VERSION_ID);
+#else
+    WPFatal(mysql_get_client_version() >= MIN_MYSQL_CLIENT_VERSION, "TrinityCore does not support MySQL versions below 5.7");
     WPFatal(mysql_get_client_version() == MYSQL_VERSION_ID, "Used MySQL library version (%s) does not match the version used to compile TrinityCore (%s).",
         mysql_get_client_info(), MYSQL_SERVER_VERSION);
+#endif
 }
 
 template <class T>

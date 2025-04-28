@@ -123,12 +123,13 @@ class TC_COMMON_API TaskScheduler
     typedef std::shared_ptr<Task> TaskContainer;
 
     /// Container which provides Task order, insert and reschedule operations.
-    struct Compare
+    class Compare
     {
-        bool operator() (TaskContainer const& left, TaskContainer const& right)
+    public:
+        bool operator()(const TaskContainer& lhs, const TaskContainer& rhs) const
         {
-            return (*left.get()) < (*right.get());
-        };
+            return lhs->_end < rhs->_end;
+        }
     };
 
     class TC_COMMON_API TaskQueue

@@ -2079,12 +2079,12 @@ void WorldSession::HandleCharRaceOrFactionChangeCallback(PreparedQueryResult res
             uint16 zoneId = 0;
             if (newTeamId == TEAM_ALLIANCE)
             {
-                loc.WorldRelocate(0, -8867.68f, 673.373f, 97.9034f, 0.0f);	//Stitch npc_changer coordonnées A2
+                loc.WorldRelocate(0, -8867.68f, 673.373f, 97.9034f, 0.0f);	//Stitch npc_changer coordonnees A2
                 zoneId = 1519;
             }
             else
             {
-                loc.WorldRelocate(1, 1633.33f, -4439.11f, 17.7588f, 0.0f);  //Stitch npc_changer coordonnées H2
+                loc.WorldRelocate(1, 1633.33f, -4439.11f, 17.7588f, 0.0f);  //Stitch npc_changer coordonnees H2
                 zoneId = 1637;
             }
 

@@ -413,7 +413,7 @@ enum DalaranCrystal
     QUEST_TELE_CRYSTAL_FLAG     = 12845
 };
 
-#define GO_TELE_TO_DALARAN_CRYSTAL_FAILED   "Ce cristal de téléportation ne peut pas être utilisé avant que le cristal de téléportation de Dalaran ait été utilisé au moins une fois."
+#define GO_TELE_TO_DALARAN_CRYSTAL_FAILED   "Ce cristal de teleportation ne peut pas être utilise avant que le cristal de teleportation de Dalaran ait ete utilise au moins une fois."
 
 class go_tele_to_dalaran_crystal : public GameObjectScript
 {

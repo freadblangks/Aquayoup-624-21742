@@ -3,18 +3,18 @@
 // npc a l'agro s'adapte au level de l'agresseur + AI generique
 // Ces mobs utilisent les sorts definit dans Creature_Template->spellx
 // Il est possible de modifier le temp entre 2 cast avec `BaseAttackTime` & `RangeAttackTime` 
-// Ajustez les mélée avec UPDATE `creature_template` SET `ArmorModifier` = 2,`DamageModifier` = 2 WHERE (entry = 15000317);
+// Ajustez les melee avec UPDATE `creature_template` SET `ArmorModifier` = 2,`DamageModifier` = 2 WHERE (entry = 15000317);
 //
-// Afin d'activer l'agro des lvl gris Régler worldserver.conf : NoGrayAggro.Above = 0 et NoGrayAggro.Below = 0
+// Afin d'activer l'agro des lvl gris Regler worldserver.conf : NoGrayAggro.Above = 0 et NoGrayAggro.Below = 0
 //
 // Spell1   : Buff a l'agro
 // Spell2   : Sort sur la cible a l'agro
 // Spell3   : Sort sur la cible pendant le combat
 // Spell4   : Sort Dot sur la cible pendant le combat
-// Spell5   : Heal sur caster et Allié
+// Spell5   : Heal sur caster et Allie
 // Caster :
 // Druide   : UPDATE `creature_template` SET `spell1` = 1126,`spell2` = 2912,`spell3` = 119577, `spell4` = 15798,`HealthModifier` = 2, `ManaModifier` = 2, `ArmorModifier` = 1, `DamageModifier` = 2,`BaseAttackTime` = 2500, `RangeAttackTime` = 3000,`lootid` = 0,`ScriptName` = 'Stitch_npc_ai_level_scale_caster' WHERE (entry = 15000319);
-// Mélee :
+// Melee :
 // Guerrier : UPDATE `creature_template` SET `spell1` = 2457,`spell2` = 32323,`spell3` = 29426, `spell4` = 36991,`HealthModifier` = 2, `ManaModifier` = 1,`ArmorModifier` = 2,`DamageModifier` = 2,`BaseAttackTime` = 2500, `RangeAttackTime` = 3000,`lootid` = 0,`ScriptName` = 'Stitch_npc_ai_level_scale_melee' WHERE (entry = 15000317);
 // Heal :
 // Chaman   : UPDATE `creature_template` SET `HealthModifier` = 2, `ManaModifier` = 3, `ArmorModifier` = 1, `DamageModifier` = 2,`lootid` = 0,`ScriptName` = 'Stitch_npc_ai_level_scale_heal',`AIName` = '' WHERE (entry = 15000320);
@@ -79,7 +79,7 @@ public: Stitch_npc_ai_level_scale_caster() : CreatureScript("Stitch_npc_ai_level
 
 				// Message a l'agro , ci le mob a plusieurs lignes (creature_text groupid>0) il y a de forte chance que ce soit pour un dialogue
 				// et non un simple message a l'agro. Donc on l'ignore.
-				// Message a l'agro forcé par spell(8)
+				// Message a l'agro force par spell(8)
 				Random = urand(1, 5);
 				if ((sCreatureTextMgr->TextExist(me->GetEntry(), 0)) && (!sCreatureTextMgr->TextExist(me->GetEntry(), 1) && Random == 1) || me->m_spells[7] == 1)
 				{
@@ -204,7 +204,7 @@ public: Stitch_npc_ai_level_scale_caster() : CreatureScript("Stitch_npc_ai_level
 					me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISABLE_MOVE);			//UNROOT
 				}
 
-				// Mouvement aléatoire si cible < 6m -------------------------------------------------------------------------------------------------------
+				// Mouvement aleatoire si cible < 6m -------------------------------------------------------------------------------------------------------
 				if ((resteadistancetimer <= diff))
 				{
 					if (me->GetPower(POWER_MANA) > me->GetMaxPower(POWER_MANA) / 20)
@@ -517,7 +517,7 @@ public: Stitch_npc_ai_level_scale_heal() : CreatureScript("Stitch_npc_ai_level_s
 						spelltimerheal = 2000;
 					}
 					// Creature_Template->Spell5 : heal sur Friend --------------------------------------------------------------------------------------------------
-					else if (Unit* target = DoSelectLowestHpFriendly(distancedecast)) // Distance de l'allié = 30m
+					else if (Unit* target = DoSelectLowestHpFriendly(distancedecast)) // Distance de l'allie = 30m
 					{
 						if (me->IsFriendlyTo(target))
 						{
@@ -614,7 +614,7 @@ public: Stitch_npc_ai_level_scale_heal() : CreatureScript("Stitch_npc_ai_level_s
 					me->RemoveFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_DISABLE_MOVE);		//UNROOT
 				}
 
-				// Mouvement aléatoire si cible < 6m -------------------------------------------------------------------------------------------------------
+				// Mouvement aleatoire si cible < 6m -------------------------------------------------------------------------------------------------------
 				if ((resteadistancetimer <= diff))
 				{
 					if (me->IsWithinCombatRange(me->GetVictim(), 6.0f) && (me->GetPower(POWER_MANA) > me->GetMaxPower(POWER_MANA) / 20))
